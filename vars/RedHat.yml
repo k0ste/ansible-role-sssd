@@ -1,0 +1,2 @@
+---
+sssd_conf_dest: '/etc/sssd'

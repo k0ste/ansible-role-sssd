@@ -1,0 +1,4 @@
+---
+- name: sssd | Add the OS specific varibles
+  include_vars: "{{ hostvars[inventory_hostname]['ansible_os_family'] +
+                    '.yml' }}"

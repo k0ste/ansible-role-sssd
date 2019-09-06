@@ -1,0 +1,12 @@
+---
+- name: sssd | Deploy sssd configuration
+  lineinfile:
+    path: "{{ hostvars[inventory_hostname]['sssd_conf_dest'] + '/' + 'sssd.conf' }}"
+    line: 'default_shell = /bin/bash'
+    insertafter: '^homedir_substring = /home'
+    owner: 'root'
+    group: 'root'
+    mode: '600'
+    state: 'present'
+  notify:
+    - 'Restart sssd'

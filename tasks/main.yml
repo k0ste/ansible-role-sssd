@@ -1,0 +1,3 @@
+---
+- import_tasks: pre_requisite.yml
+- include_tasks: deploy_sssd.yml

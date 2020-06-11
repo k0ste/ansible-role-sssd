@@ -1,0 +1,102 @@
+{% for sp in s.pam %}
+{% if loop.first %}
+{{ '[pam]' }}
+{% endif %}
+{% if sp.debug_level is defined and sp.debug_level != '' %}
+{{ 'debug_level = ' ~ sp.debug_level }}
+{% endif %}
+{% if sp.debug_timestamps is defined and
+      sp.debug_timestamps in ['true', 'false'] %}
+{{ 'debug_timestamps = ' + sp.debug_timestamps }}
+{% endif %}
+{% if sp.debug_microseconds is defined and
+      sp.debug_microseconds in ['true', 'false'] %}
+{{ 'debug_microseconds = ' + sp.debug_microseconds }}
+{% endif %}
+{% if sp.timeout is defined and sp.timeout != '' %}
+{{ 'timeout = ' ~ sp.timeout }}
+{% endif %}
+{% if sp.offline_credentials_expiration is defined and
+      sp.offline_credentials_expiration != '' %}
+{{ 'offline_credentials_expiration = ' ~ sp.offline_credentials_expiration }}
+{% endif %}
+{% if sp.offline_failed_login_attempts is defined and
+      sp.offline_failed_login_attempts != '' %}
+{{ 'offline_failed_login_attempts = ' ~ sp.offline_failed_login_attempts }}
+{% endif %}
+{% if sp.offline_failed_login_delay is defined and
+      sp.offline_failed_login_delay != '' %}
+{{ 'offline_failed_login_delay = ' ~ sp.offline_failed_login_delay }}
+{% endif %}
+{% if sp.pam_verbosity is defined and sp.pam_verbosity != '' %}
+{{ 'offline_failed_login_delay = ' ~ sp.pam_verbosity }}
+{% endif %}
+{% if sp.pam_response_filter is defined and sp.pam_response_filter != '' %}
+{{ 'pam_response_filter = ' + sp.pam_response_filter }}
+{% endif %}
+{% if sp.pam_id_timeout is defined and sp.pam_id_timeout != '' %}
+{{ 'pam_id_timeout = ' ~ sp.pam_id_timeout }}
+{% endif %}
+{% if sp.pam_pwd_expiration_warning is defined and
+      sp.pam_pwd_expiration_warning != '' %}
+{{ 'pam_pwd_expiration_warning = ' ~ sp.pam_pwd_expiration_warning }}
+{% endif %}
+{% if sp.get_domains_timeout is defined and sp.get_domains_timeout != '' %}
+{{ 'get_domains_timeout = ' ~ sp.get_domains_timeout }}
+{% endif %}
+{% if sp.pam_trusted_users is defined and sp.pam_trusted_users != '' %}
+{% if sp.pam_trusted_users is string %}
+{{ 'pam_trusted_users = ' + sp.pam_trusted_users }}
+{% elif sp.pam_trusted_users is sequence  %}
+{{ 'pam_trusted_users = ' + sp.pam_trusted_users | join(', ') }}
+{% endif %}
+{% endif %}
+{% if sp.pam_public_domains is defined and sp.pam_public_domains != '' %}
+{% if sp.pam_public_domains in ['all', 'none'] %}
+{{ 'pam_public_domains = ' + sp.pam_public_domains }}
+{% elif sp.pam_public_domains is string %}
+{{ 'pam_public_domains = ' + sp.pam_public_domains }}
+{% elif sp.pam_public_domains is sequence %}
+{{ 'pam_public_domains = ' + sp.pam_public_domains | join(', ') }}
+{% endif %}
+{% endif %}
+{% if sp.pam_account_expired_message is defined and
+      sp.pam_account_expired_message != '' %}
+{{ 'pam_account_expired_message = ' ~ sp.pam_account_expired_message }}
+{% endif %}
+{% if sp.pam_account_locked_message is defined and
+      sp.pam_account_locked_message != '' %}
+{{ 'pam_account_locked_message = ' ~ sp.pam_account_locked_message }}
+{% endif %}
+{% if sp.pam_cert_auth is defined and sp.pam_cert_auth in ['true', 'false'] %}
+{{ 'pam_cert_auth = ' ~ sp.pam_cert_auth }}
+{% endif %}
+{% if sp.pam_cert_db_path is defined and sp.pam_cert_db_path != '' %}
+{{ 'pam_cert_db_path = ' + sp.pam_cert_db_path }}
+{% endif %}
+{% if sp.p11_child_timeout is defined and sp.p11_child_timeout != '' %}
+{{ 'p11_child_timeout = ' ~ sp.p11_child_timeout }}
+{% endif %}
+{% if sp.pam_app_services is defined and sp.pam_app_services != '' %}
+{{ 'pam_app_services = ' + sp.pam_app_services }}
+{% endif %}
+{% if sp.pam_p11_allowed_services is defined and
+      sp.pam_p11_allowed_services != '' %}
+{% if sp.pam_p11_allowed_services is string %}
+{{ 'pam_p11_allowed_services = ' + sp.pam_p11_allowed_services }}
+{% elif sp.pam_p11_allowed_services is sequence %}
+{{ 'pam_p11_allowed_services = ' + sp.pam_p11_allowed_services | join(', ') }}
+{% endif %}
+{% endif %}
+{% if sp.p11_wait_for_card_timeout is defined and
+      sp.p11_wait_for_card_timeout != '' %}
+{{ 'p11_wait_for_card_timeout = ' ~ sp.p11_wait_for_card_timeout }}
+{% endif %}
+{% if sp.p11_uri is defined and sp.p11_uri != '' %}
+{{ 'p11_uri = ' + sp.p11_uri }}
+{% endif %}
+{% if sp.pam_initgroups_scheme is defined and
+      sp.pam_initgroups_scheme in ['always', 'no_session', 'never'] %}
+{{ 'p11_uri = ' + sp.pam_initgroups_scheme }}
+{% endif %}
+{% endfor %}

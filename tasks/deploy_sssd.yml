@@ -1,12 +1,23 @@
 ---
-- name: sssd | Deploy sssd configuration
-  lineinfile:
-    path: "{{ hostvars[inventory_hostname]['sssd_conf_dest'] + '/' + 'sssd.conf' }}"
-    line: 'default_shell = /bin/bash'
-    insertafter: '^homedir_substring = /home'
-    owner: 'root'
-    group: 'root'
-    mode: '600'
-    state: 'present'
+- name: sssd | Deploy sssd.conf
+  template:
+    src: "sssd.j2"
+    dest: "{{ hostvars[inventory_hostname]['sssd_conf_dest'] + '/' +
+              'sssd.conf' }}"
+    group: "root"
+    owner: "root"
+    mode: "0600"
+    force: "yes"
   notify:
-    - 'Restart sssd'
+  - "Restart sssd"
+- name: sssd | Enable sssd service
+  systemd:
+    name: "{{ hostvars[inventory_hostname]['sssd_service'] }}"
+    enabled: "yes"
+  when:
+  - "hostvars[inventory_hostname]['sssd'] |
+     json_query(vars['sssd_enable']) is defined"
+  - "hostvars[inventory_hostname]['sssd'] |
+     json_query(vars['sssd_enable']) == 'true'"
+  vars:
+    sssd_enable: "[] | map(&enable || 'false', @) | [0]"

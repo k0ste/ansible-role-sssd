@@ -1,3 +1,16 @@
 ---
-- import_tasks: pre_requisite.yml
-- include_tasks: deploy_sssd.yml
+- import_tasks: "pre_requisite.yml"
+- include_tasks: "packages.yml"
+  when:
+  - "hostvars[inventory_hostname]['sssd'] is defined"
+  - "hostvars[inventory_hostname]['sssd'] != ''"
+  - "hostvars[inventory_hostname]['sssd'] |
+     json_query(vars['sssd_install_package']) is defined"
+  - "hostvars[inventory_hostname]['sssd'] |
+     json_query(vars['sssd_install_package']) == 'true'"
+  vars:
+    sssd_install_package: "[] | map(&install_package || 'false', @) | [0]"
+- include_tasks: "deploy_sssd.yml"
+  when:
+  - "hostvars[inventory_hostname]['sssd_settings'] is defined"
+  - "hostvars[inventory_hostname]['sssd_settings'] != ''"

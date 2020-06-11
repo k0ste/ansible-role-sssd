@@ -1,0 +1,99 @@
+{% for ss in s.sssd %}
+{% if loop.first %}
+{{ '[sssd]' }}
+{% endif %}
+{% if ss.debug_level is defined and ss.debug_level != '' %}
+{{ 'debug_level = ' ~ ss.debug_level }}
+{% endif %}
+{% if ss.debug_timestamps is defined and
+      ss.debug_timestamps in ['true', 'false'] %}
+{{ 'debug_timestamps = ' + ss.debug_timestamps }}
+{% endif %}
+{% if ss.debug_microseconds is defined and
+      ss.debug_microseconds in ['true', 'false'] %}
+{{ 'debug_microseconds = ' + ss.debug_microseconds }}
+{% endif %}
+{% if ss.timeout is defined and ss.timeout != '' %}
+{{ 'timeout = ' ~ ss.timeout }}
+{% endif %}
+{% if ss.config_file_version is defined and ss.config_file_version != '' %}
+{{ 'config_file_version = ' ~ ss.config_file_version }}
+{% endif %}
+{% if ss.services is defined and ss.services != '' %}
+{% if ss.services is string %}
+{{ 'services = ' + ss.services }}
+{% elif ss.services is sequence %}
+{{ 'services = ' + ss.services | join(', ') }}
+{% endif %}
+{% endif %}
+{% if ss.reconnection_retries is defined and ss.reconnection_retries != '' %}
+{{ 'reconnection_retries = ' ~ ss.reconnection_retries }}
+{% endif %}
+{% if vars['sssd_domains'] is defined and vars['sssd_domains'] != '' %}
+{% for sd in vars['sssd_domains'] %}
+{% if loop.first %}
+{{ 'domains = ' -}}
+{% endif %}
+{% if sd.name is defined and sd.name != '' %}
+{{ sd.name -}}
+{% endif %}
+{% if loop.last %}
+{{ '' }}
+{% else %}
+{{ ', ' -}}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if ss.re_expression is defined and ss.re_expression != '' %}
+{{ 're_expression = ' ~ ss.re_expression }}
+{% endif %}
+{% if ss.full_name_format is defined and ss.full_name_format != '' %}
+{{ 'full_name_format = ' + ss.full_name_format }}
+{% endif %}
+{% if ss.monitor_resolv_conf is defined and
+      ss.monitor_resolv_conf in ['true', 'false'] %}
+{{ 'monitor_resolv_conf = ' + ss.monitor_resolv_conf }}
+{% endif %}
+{% if ss.try_inotify is defined and ss.try_inotify in ['true', 'false'] %}
+{{ 'try_inotify = ' + ss.try_inotify }}
+{% endif %}
+{% if ss.krb5_rcache_dir is defined and ss.krb5_rcache_dir != '' %}
+{{ 'krb5_rcache_dir = ' + ss.krb5_rcache_dir }}
+{% endif %}
+{% if ss.user is defined and ss.user != '' %}
+{{ 'user = ' + ss.user }}
+{% endif %}
+{% if ss.default_domain_suffix is defined and ss.default_domain_suffix != '' %}
+{{ 'default_domain_suffix = ' + ss.default_domain_suffix }}
+{% endif %}
+{% if ss.override_space is defined and ss.override_space != '' %}
+{{ 'override_space = ' + ss.override_space }}
+{% endif %}
+{% if ss.override_space is defined and ss.override_space != '' %}
+{{ 'override_space = ' + ss.override_space }}
+{% endif %}
+{% if ss.certificate_verification is defined and
+      ss.certificate_verification != '' %}
+{% if ss.certificate_verification is string %}
+{{ 'certificate_verification = ' + ss.certificate_verification }}
+{% elif ss.certificate_verification is sequence  %}
+{{ 'certificate_verification = ' + ss.certificate_verification | join(', ') }}
+{% endif %}
+{% endif %}
+{% if ss.disable_netlink is defined and
+      ss.disable_netlink in ['true', 'false'] %}
+{{ 'disable_netlink = ' + ss.disable_netlink }}
+{% endif %}
+{% if ss.enable_files_domain is defined and
+      ss.enable_files_domain in ['true', 'false'] %}
+{{ 'disable_netlink = ' + ss.enable_files_domain }}
+{% endif %}
+{% if ss.domain_resolution_order is defined and
+      ss.domain_resolution_order != '' %}
+{% if ss.domain_resolution_order is string %}
+{{ 'domain_resolution_order = ' + ss.domain_resolution_order }}
+{% elif ss.domain_resolution_order is sequence %}
+{{ 'domain_resolution_order = ' + ss.domain_resolution_order | join(', ') }}
+{% endif %}
+{% endif %}
+{% endfor %}

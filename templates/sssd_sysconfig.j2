@@ -1,0 +1,7 @@
+{{ '## sssd' }}
+{{ '# ' + ansible_managed }}
+{{ '# ' + 'Do not edit manually' }}
+
+{% if vars['sssd_logger'] in ['stderr', 'files', 'journald'] %}
+{{ 'DEBUG_LOGGER=--logger=' + vars['sssd_logger'] }}
+{% endif %}

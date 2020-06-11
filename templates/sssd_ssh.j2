@@ -1,0 +1,47 @@
+{% for sh in s.ssh %}
+{% if loop.first %}
+{{ '[ssh]' }}
+{% endif %}
+{% if sh.debug_level is defined and sh.debug_level != '' %}
+{{ 'debug_level = ' ~ sh.debug_level }}
+{% endif %}
+{% if sh.debug_timestamps is defined and
+      sh.debug_timestamps in ['true', 'false'] %}
+{{ 'debug_timestamps = ' + sh.debug_timestamps }}
+{% endif %}
+{% if sh.debug_microseconds is defined and
+      sh.debug_microseconds in ['true', 'false'] %}
+{{ 'debug_microseconds = ' + sh.debug_microseconds }}
+{% endif %}
+{% if sh.timeout is defined and sh.timeout != '' %}
+{{ 'timeout = ' ~ sh.timeout }}
+{% endif %}
+{% if sh.ssh_hash_known_hosts is defined and
+      sh.ssh_hash_known_hosts in ['true', 'false'] %}
+{{ 'ssh_hash_known_hosts = ' + sh.ssh_hash_known_hosts }}
+{% endif %}
+{% if sh.ssh_known_hosts_timeout is defined and
+      sh.ssh_known_hosts_timeout != '' %}
+{{ 'ssh_known_hosts_timeout = ' ~ sh.ssh_known_hosts_timeout }}
+{% endif %}
+{% if sh.ssh_use_certificate_keys is defined and
+      sh.ssh_use_certificate_keys in ['true', 'false'] %}
+{{ 'ssh_use_certificate_keys = ' + sh.ssh_use_certificate_keys }}
+{% endif %}
+{% if sp.ssh_use_certificate_matching_rules is defined and
+      sp.ssh_use_certificate_matching_rules != '' %}
+{% if sp.ssh_use_certificate_matching_rules in ['all', 'none'] %}
+{{ 'ssh_use_certificate_matching_rules = ' +
+  sp.ssh_use_certificate_matching_rules }}
+{% elif sp.ssh_use_certificate_matching_rules is string %}
+{{ 'ssh_use_certificate_matching_rules = ' +
+  sp.ssh_use_certificate_matching_rules }}
+{% elif sp.ssh_use_certificate_matching_rules is sequence %}
+{{ 'ssh_use_certificate_matching_rules = ' +
+  sp.ssh_use_certificate_matching_rules | join(', ') }}
+{% endif %}
+{% endif %}
+{% if sh.ca_db is defined and sh.ca_db != '' %}
+{{ 'ca_db = ' + sh.ca_db }}
+{% endif %}
+{% endfor %}

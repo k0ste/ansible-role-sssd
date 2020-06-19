@@ -1,0 +1,23 @@
+{% for sa in s.autofs %}
+{% if loop.first %}
+{{ '[autofs]' }}
+{% endif %}
+{% if sa.autofs_negative_timeout is defined and
+      sa.autofs_negative_timeout != '' %}
+{{ 'autofs_negative_timeout = ' ~ sa.autofs_negative_timeout }}
+{% endif %}
+{% if sa.debug_level is defined and sa.debug_level != '' %}
+{{ 'debug_level = ' ~ sa.debug_level }}
+{% endif %}
+{% if sa.debug_timestamps is defined and
+      sa.debug_timestamps in ['true', 'false'] %}
+{{ 'debug_timestamps = ' + sa.debug_timestamps }}
+{% endif %}
+{% if sa.debug_microseconds is defined and
+      sa.debug_microseconds in ['true', 'false'] %}
+{{ 'debug_microseconds = ' + sa.debug_microseconds }}
+{% endif %}
+{% if sa.timeout is defined and sa.timeout != '' %}
+{{ 'timeout = ' ~ sa.timeout }}
+{% endif %}
+{% endfor %}

@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: "Konstantin Shalygin <k0ste@k0ste.ru>"
+  issue_tracker_url: "http://jira.opentech.local/secure/Dashboard.jspa"
+  description: "sssd - System Security Services Daemon"
+  company: "LLC Open Technologies"
+  license: "GPL"
+  min_ansible_version: "2.8"
+  platforms:
+  - name: Archlinux
+    versions:
+    - any
+  - name: EL
+    versions:
+    - 7
+    - 8
+  categories:
+  - system
+dependencies: []

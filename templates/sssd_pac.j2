@@ -1,0 +1,29 @@
+{% for sp in s.pac %}
+{% if loop.first %}
+{{ '[pac]' }}
+{% endif %}
+{% if sp.debug_level is defined and sp.debug_level != '' %}
+{{ 'debug_level = ' ~ sp.debug_level }}
+{% endif %}
+{% if sp.debug_timestamps is defined and
+      sp.debug_timestamps in ['true', 'false'] %}
+{{ 'debug_timestamps = ' + sp.debug_timestamps }}
+{% endif %}
+{% if sp.debug_microseconds is defined and
+      sp.debug_microseconds in ['true', 'false'] %}
+{{ 'debug_microseconds = ' + sp.debug_microseconds }}
+{% endif %}
+{% if sp.timeout is defined and sp.timeout != '' %}
+{{ 'timeout = ' ~ sp.timeout }}
+{% endif %}
+{% if sp.allowed_uids is defined and sp.allowed_uids != '' %}
+{% if sp.allowed_uids is string %}
+{{ 'allowed_uids = ' ~ sp.allowed_uids }}
+{% elif sp.allowed_uids is sequence %}
+{{ 'allowed_uids = ' ~ sp.allowed_uids | join(', ') }}
+{% endif %}
+{% endif %}
+{% if sp.pac_lifetime is defined and sp.pac_lifetime != '' %}
+{{ 'pac_lifetime = ' ~ sp.pac_lifetime }}
+{% endif %}
+{% endfor %}

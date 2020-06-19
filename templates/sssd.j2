@@ -1,0 +1,44 @@
+{{ '## sssd.conf' }}
+{{ '# ' + ansible_managed }}
+{{ '# ' + 'Do not edit manually' }}
+
+{% for s in vars['sssd_settings'] %}
+{% if s.sssd is defined and s.sssd != '' %}
+{% include 'sssd_sssd.j2' %}
+{{ '' }}
+{% endif %}
+{% if s.nss is defined and s.nss != '' %}
+{% include 'sssd_nss.j2' %}
+{{ '' }}
+{% endif %}
+{% if s.pam is defined and s.pam != '' %}
+{% include 'sssd_pam.j2' %}
+{{ '' }}
+{% endif %}
+{% if s.sudo is defined and s.sudo != '' %}
+{% include 'sssd_sudo.j2' %}
+{{ '' }}
+{% endif %}
+{% if s.autofs is defined and s.autofs != '' %}
+{% include 'sssd_autofs.j2' %}
+{{ '' }}
+{% endif %}
+{% if s.ssh is defined and s.ssh != '' %}
+{% include 'sssd_ssh.j2' %}
+{{ '' }}
+{% endif %}
+{% if s.pac is defined and s.pac != '' %}
+{% include 'sssd_pac.j2' %}
+{{ '' }}
+{% endif %}
+{% if s.session_recording is defined and s.session_recording != '' %}
+{% include 'sssd_session_recording.j2' %}
+{{ '' }}
+{% endif %}
+{% if vars['sssd_domains'] is defined and vars['sssd_domains'] != '' %}
+{% for sd in vars['sssd_domains'] %}
+{% include 'sssd_domain.j2' %}
+{{ '' }}
+{% endfor %}
+{% endif %}
+{% endfor %}

@@ -1,5 +1,14 @@
 ---
 - name: Restart sssd
   systemd:
-    name: "sssd"
+    name: "{{ hostvars[inventory_hostname]['sssd_service'] }}"
     state: "restarted"
+  when:
+  - "hostvars[inventory_hostname]['sssd'] is defined"
+  - "hostvars[inventory_hostname]['sssd'] != ''"
+  - "hostvars[inventory_hostname]['sssd'] |
+     json_query(vars['sssd_restart']) is defined"
+  - "hostvars[inventory_hostname]['sssd'] |
+     json_query(vars['sssd_restart']) == 'true'"
+  vars:
+    sssd_restart: "[] | map(&restart || 'false', @) | [0]"

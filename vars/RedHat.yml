@@ -1,4 +1,6 @@
 ---
 sssd_conf_dest: '/etc/sssd'
 sssd_service: 'sssd'
-sssd_package: 'sssd'
+sssd_package:
+- 'sssd'
+- 'sssd-tools'

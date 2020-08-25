@@ -713,6 +713,126 @@ sssd:
 # Specify the Kerberos REALM (for SASL/GSSAPI/GSS-SPNEGO auth). Default is
 # System defaults, see '/etc/krb5.conf'
         krb5_realm: ''
+# If the change password service is not running on the KDC, alternative servers
+# can be defined here. An optional port number (preceded by a colon) may be
+# appended to the addresses or hostnames. NOTE: Even if there are no more
+# kpasswd servers to try, the backend is not switched to operate offline if
+# authentication against the KDC is still possible. Default: Use the KDC
+        krb5_kpasswd: ''
+        krb5_backup_kpasswd: ''
+# Directory to store credential caches. All the substitution sequences of
+# 'krb5_ccname_template' can be used here, too, except '%d' and '%P'. The
+# directory is created as private and owned by the user, with permissions set
+# to '0700'. Default is '/tmp'.
+        krb5_ccachedir: '/tmp'
+# Location of the user's credential cache. Three credential cache types are
+# currently supported: "FILE", "DIR" and "KEYRING:persistent". The cache can be
+# specified either as TYPE:RESIDUAL, or as an absolute path, which implies the
+# "FILE" type. In the template, the following sequences are substituted:
+# '%u' - login name
+# '%U' - login UID
+# '%p' - principal name
+# '%r' - realm name
+# '%h' - home directory
+# '%d' - value of krb5_ccachedir
+# '%P' - the process ID of the SSSD client
+# '%%' - a literal '%'
+# If the template ends with 'XXXXXX' mkstemp is used to create a unique filename
+# in a safe way. When using KEYRING types, the only supported mechanism is
+# "KEYRING:persistent:%U", which uses the Linux kernel keyring to store
+# credentials on a per-UID basis. This is also the recommended choice, as it is
+# the most secure and predictable method. NOTE: Please be aware that libkrb5
+# ccache expansion template from krb5.conf uses different expansion sequences
+# than SSSD.
+        krb5_ccname_template: ''
+# Timeout in seconds after an online authentication request or change password
+# request is aborted. If possible, the authentication request is continued
+# offline. Default is '6'.
+        krb5_auth_timeout: '6'
+# Verify with the help of krb5_keytab that the TGT obtained has not been
+# spoofed. The keytab is checked for entries sequentially, and the first entry
+# with a matching realm is used for validation. If no entry matches the realm,
+# the last entry in the keytab is used. This process can be used to validate
+# environments using cross-realm trust by placing the appropriate keytab entry
+# as the last entry or the only entry in the keytab file. Default is 'false'.
+        krb5_validate: 'false'
+# Store the password of the user if the provider is offline and use it to
+# request a TGT when the provider comes online again. NOTE: this feature is only
+# available on Linux. Passwords stored in this way are kept in plaintext in the
+# kernel keyring and are potentially accessible by the root user (with
+# difficulty). Default is 'false'.
+        krb5_store_password_if_offline: 'false'
+# Request a renewable ticket with a total lifetime, given as an integer
+# immediately followed by a time unit:
+# 's' - for seconds
+# 'm' - for minutes
+# 'h' - for hours
+# 'd' - for days
+# If there is no unit given, 's' is assumed. NOTE: It is not possible to mix
+# units. To set the renewable lifetime to one and a half hours, use '90m'
+# instead of '1h30m'. Default: not set, i.e. the TGT is not renewable
+        krb5_renewable_lifetime: ''
+# Request ticket with a lifetime, given as an integer immediately followed by a
+# time unit:
+# 's' for seconds
+# 'm' for minutes
+# 'h' for hours
+# 'd' for days.
+# If there is no unit given 's' is assumed. NOTE: It is not possible to mix
+# units. To set the lifetime to one and a half hours please use '90m' instead
+# of '1h30m'. Default: not set, i.e. the default ticket lifetime configured on
+# the KDC.
+        krb5_lifetime: ''
+# The time in seconds between two checks if the TGT should be renewed. TGTs are
+# renewed if about half of their lifetime is exceeded, given as an integer
+# immediately followed by a time unit:
+# 's' for seconds
+# 'm' for minutes
+# 'h' for hours
+# 'd' for days.
+# If there is no unit given, s is assumed. NOTE: It is not possible to mix
+# units. To set the renewable lifetime to one and a half hours, use '90m'
+# instead of '1h30m'. If this option is not set or is 0 the automatic renewal
+# is disabled. Default: not set.
+        krb5_renew_interval: ''
+# Enables flexible authentication secure tunneling (FAST) for Kerberos
+# pre-authentication. The following options are supported:
+# 'never' - use FAST. This is equivalent to not setting this option at all.
+# 'try' - to use FAST. If the server does not support FAST, continue the
+# authentication without it.
+# 'demand' to use FAST. The authentication fails if the server does not require
+# fast.
+# Default: not set, i.e. FAST is not used. NOTE: a keytab is required to use
+# FAST. NOTE: SSSD supports FAST only with MIT Kerberos version 1.8 and later.
+# If SSSD is used with an older version of MIT Kerberos, using this option is a
+# configuration error.
+        krb5_use_fast: ''
+# Specifies the server principal to use for FAST.
+        krb5_fast_principal: ''
+# When krb5_use_kdcinfo is set to true, you can limit the amount of servers
+# handed to sssd_krb5_locator_plugin. This might be helpful when there are too
+# many servers discovered using SRV record. The krb5_kdcinfo_lookahead option
+# contains two numbers separated by a colon. The first number represents number
+# of primary servers used and the second number specifies the number of backup
+# servers. For example '10:0' means that up to 10 primary servers will be
+# handed to sssd_krb5_locator_plugin but no backup servers. Default is '3:1'.
+        krb5_kdcinfo_lookahead: '3:1'
+# Specifies if the user principal should be treated as enterprise principal.
+# See section 5 of RFC 6806 for more details about enterprise principals.
+# Default: false (AD provider: true). The IPA provider will set to option to
+# 'true' if it detects that the server is capable of handling enterprise
+# principals and the option is not set explicitly in the config file.
+        krb5_use_enterprise_principal: 'false'
+# The list of mappings is given as a comma-separated list of pairs
+# "username:primary" where "username" is a UNIX user name and "primary" is a
+# user part of a kerberos principal. This mapping is used when user is
+# authenticating using "auth_provider = krb5". Example: "joe" and "dick" are
+# UNIX user names and "juser" and "richard" are primaries of kerberos
+# principals. For user "joe" resp. "dick" SSSD will try to kinit as
+# "juser@REALM" resp. "richard@REALM". Default is not set.
+        krb5_map_user:
+        - 'joe:juser'
+        - 'dick:richard'
 # Specifies if the host principal should be canonicalized when connecting to
 # LDAP server. This feature is available with MIT Kerberos >= 1.7. Default is
 # 'false'.
@@ -1456,12 +1576,6 @@ sssd:
 # * ldap_group_gid_number
 # Default is 'ipaGroupOverride'.
       ipa_group_override_object_class: 'ipaGroupOverride'
-
-
-
-
-
-
 # Default regular expression that describes how to parse the string containing
 # user name and domain into these components. Each domain can have an individual
 # regular expression configured. For some ID providers there are also default

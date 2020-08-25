@@ -392,6 +392,47 @@
 {% if sd.krb5_realm is defined and sd.krb5_realm != '' %}
 {{ 'krb5_realm = ' + sd.krb5_realm }}
 {% endif %}
+{% if sd.krb5_kpasswd is defined and sd.krb5_kpasswd != '' %}
+{{ 'krb5_kpasswd = ' + sd.krb5_kpasswd }}
+{% endif %}
+{% if sd.krb5_backup_kpasswd is defined and sd.krb5_backup_kpasswd != '' %}
+{{ 'krb5_backup_kpasswd = ' + sd.krb5_backup_kpasswd }}
+{% endif %}
+{% if sd.krb5_ccachedir is defined and sd.krb5_ccachedir != '' %}
+{{ 'krb5_ccachedir = ' + sd.krb5_ccachedir }}
+{% endif %}
+{% if sd.krb5_ccname_template is defined and sd.krb5_ccname_template != '' %}
+{{ 'krb5_ccname_template = ' + sd.krb5_ccname_template }}
+{% endif %}
+{% if sd.krb5_auth_timeout is defined and sd.krb5_auth_timeout != '' %}
+{{ 'krb5_auth_timeout = ' ~ sd.krb5_auth_timeout }}
+{% endif %}
+{% if sd.krb5_validate is defined and sd.krb5_validate in ['true', 'false'] %}
+{{ 'krb5_validate = ' + sd.krb5_validate }}
+{% endif %}
+{% if sd.krb5_store_password_if_offline is defined and
+      sd.krb5_store_password_if_offline in ['true', 'false'] %}
+{{ 'krb5_store_password_if_offline = ' + sd.krb5_store_password_if_offline }}
+{% endif %}
+{% if sd.krb5_renewable_lifetime is defined and
+      sd.krb5_renewable_lifetime != '' %}
+{{ 'krb5_renewable_lifetime = ' + sd.krb5_renewable_lifetime }}
+{% endif %}
+{% if sd.krb5_lifetime is defined and sd.krb5_lifetime != '' %}
+{{ 'krb5_lifetime = ' + sd.krb5_lifetime }}
+{% endif %}
+{% if sd.krb5_renew_interval is defined and sd.krb5_renew_interval != '' %}
+{{ 'krb5_renew_interval = ' + sd.krb5_renew_interval }}
+{% endif %}
+{% if sd.krb5_use_fast is defined and sd.krb5_use_fast != '' %}
+{{ 'krb5_use_fast = ' + sd.krb5_use_fast }}
+{% endif %}
+{% if sd.krb5_fast_principal is defined and sd.krb5_fast_principal != '' %}
+{{ 'krb5_fast_principal = ' + sd.krb5_fast_principal }}
+{% endif %}
+{% if sd.krb5_fast_principal is defined and sd.krb5_fast_principal != '' %}
+{{ 'krb5_fast_principal = ' + sd.krb5_fast_principal }}
+{% endif %}
 {% if sd.krb5_canonicalize is defined and
       sd.krb5_canonicalize in ['true', 'false'] %}
 {{ 'krb5_canonicalize = ' + sd.krb5_canonicalize }}
@@ -399,6 +440,21 @@
 {% if sd.krb5_use_kdcinfo is defined and
       sd.krb5_use_kdcinfo in ['true', 'false'] %}
 {{ 'krb5_use_kdcinfo = ' + sd.krb5_use_kdcinfo }}
+{% endif %}
+{% if sd.krb5_kdcinfo_lookahead is defined and
+      sd.krb5_kdcinfo_lookahead != '' %}
+{{ 'krb5_kdcinfo_lookahead = ' + sd.krb5_kdcinfo_lookahead }}
+{% endif %}
+{% if sd.krb5_map_user is defined and sd.krb5_map_user != '' %}
+{% if sd.krb5_map_user is string %}
+{{ 'krb5_map_user = ' + sd.krb5_map_user }}
+{% elif sd.krb5_map_user is sequence %}
+{{ 'krb5_map_user = ' + sd.krb5_map_user | join(',') }}
+{% endif %}
+{% endif %}
+{% if sd.krb5_use_enterprise_principal is defined and
+      sd.krb5_use_enterprise_principal in ['true', 'false'] %}
+{{ 'krb5_use_enterprise_principal = ' + sd.krb5_use_enterprise_principal }}
 {% endif %}
 {% if sd.ldap_pwd_policy is defined and
       sd.ldap_pwd_policy in ['none', 'shadow', 'mit_kerberos'] %}

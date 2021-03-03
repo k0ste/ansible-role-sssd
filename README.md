@@ -10,7 +10,7 @@ data.
 
 ## Requirements
 
-* Ansible 2.8+;
+* Ansible 3.0.0+;
 
 ## Example configuration
 
@@ -23,6 +23,9 @@ sssd:
   restart: 'true'
 # Install sssd package or not.
   install_package: 'true'
+# 'present' (do nothing if package is already installed) or 'latest' (always
+# upgrade to last version)
+  package_state: 'latest'
   logger: 'journald'
 # Location where SSSD will send log messages.
 # stderr - redirect debug messages to standard error output;

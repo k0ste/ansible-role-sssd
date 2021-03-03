@@ -1,34 +1,44 @@
 ---
-- name: sssd | Add the OS specific variables
-  include_vars: "{{ hostvars[inventory_hostname]['ansible_os_family'] +
-                    '.yml' }}"
+- name: sssd | Add the OS specific varibles
+  ansible.builtin.include_vars:
+    file: "{{ hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
 - name: sssd | Set facts about sssd role
-  set_fact:
+  ansible.builtin.set_fact:
+    sssd_package_state: "{{ hostvars[inventory_hostname]['sssd'] |
+      community.general.json_query('[].package_state | [0]') }}"
     sssd_settings: "{{ hostvars[inventory_hostname]['sssd'] |
-      json_query('[].settings[]') }}"
+      community.general.json_query('[].settings[]') }}"
     sssd_domains: "{{ hostvars[inventory_hostname]['sssd'] |
-      json_query('[].settings[].sssd[].domains[]') }}"
+      community.general.json_query('[].settings[].sssd[].domains[]') }}"
     sssd_logger: "{{ hostvars[inventory_hostname]['sssd'] |
-      json_query('[].logger | [0]') }}"
+      community.general.json_query('[].logger | [0]') }}"
+- name: sssd | Assert that sssd package state in valid value
+  ansible.builtin.assert:
+    that:
+      - "vars['sssd_package_state'] in ['present', 'latest']"
+    msg: "'package_state' must be in 'present' or 'latest'"
+    quiet: "true"
+  when:
+    - "hostvars[inventory_hostname]['sssd_package_state'] is defined"
 - name: sssd | Create sssd catalog
-  file:
+  ansible.builtin.file:
     path: "{{ hostvars[inventory_hostname]['sssd_conf_dest'] }}"
     state: "directory"
     owner: "root"
     group: "root"
     mode: "0711"
 - name: sssd | Create sysconfig catalog
-  file:
+  ansible.builtin.file:
     path: "/etc/sysconfig"
     state: "directory"
     owner: "root"
     group: "root"
     mode: "0755"
   when:
-  - "vars['sssd_logger'] is defined"
-  - "vars['sssd_logger'] != ''"
+    - "vars['sssd_logger'] is defined"
+    - "vars['sssd_logger'] != ''"
 - name: sssd | Deploy sysconfig env logger settings
-  template:
+  ansible.builtin.template:
     src: "sssd_sysconfig.j2"
     dest: "/etc/sysconfig/sssd"
     group: "root"
@@ -36,7 +46,7 @@
     mode: "0644"
     force: "yes"
   when:
-  - "vars['sssd_logger'] is defined"
-  - "vars['sssd_logger'] != ''"
+    - "vars['sssd_logger'] is defined"
+    - "vars['sssd_logger'] != ''"
   notify:
-  - "Restart sssd"
+    - "Restart sssd"

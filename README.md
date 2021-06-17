@@ -474,7 +474,7 @@ sssd:
 # types are currently supported: 'rfc2307' (the default), 'rfc2307bis', 'IPA',
 # 'AD'. The main difference between these schema types is how group memberships
 # are recorded in the server. With 'rfc2307', group members are listed by name
-# in the "memberUid" attribute. With 'rfc2307bis' and IPA, group members are
+# in the "memberUid" attribute. With 'rfc2307bis' and 'IPA', group members are
 # listed by DN and stored in the "member" attribute. The AD schema type sets the
 # attributes to correspond with Active Directory 2008r2 values.
         ldap_schema: 'rfc2307'

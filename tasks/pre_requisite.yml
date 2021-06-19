@@ -5,7 +5,7 @@
 - name: sssd | Set facts about sssd role
   ansible.builtin.set_fact:
     sssd_package_state: "{{ hostvars[inventory_hostname]['sssd'] |
-      community.general.json_query('[].package_state | [0]') }}"
+      community.general.json_query('[].package_state[] | [0]') }}"
     sssd_settings: "{{ hostvars[inventory_hostname]['sssd'] |
       community.general.json_query('[].settings[]') }}"
     sssd_domains: "{{ hostvars[inventory_hostname]['sssd'] |
@@ -16,10 +16,18 @@
   ansible.builtin.assert:
     that:
       - "vars['sssd_package_state'] in ['present', 'latest']"
-    msg: "'package_state' must be in 'present' or 'latest'"
+    msg: "{{ 'package_state must be in `present` or `latest`, current is: ' +
+      vars['sssd_package_state'] }}"
     quiet: "true"
   when:
-    - "hostvars[inventory_hostname]['sssd_package_state'] is defined"
+    - "vars['sssd_package_state'] is defined"
+    - "vars['sssd_package_state'] != ''"
+- name: sssd | Set package state to 'present' cause value is not defined
+  ansible.builtin.set_fact:
+    sssd_package_state: "present"
+  when:
+    - "vars['sssd_package_state'] is defined"
+    - "vars['sssd_package_state'] == ''"
 - name: sssd | Create sssd catalog
   ansible.builtin.file:
     path: "{{ hostvars[inventory_hostname]['sssd_conf_dest'] }}"

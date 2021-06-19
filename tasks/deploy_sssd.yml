@@ -2,8 +2,7 @@
 - name: sssd | Deploy sssd.conf
   ansible.builtin.template:
     src: "sssd.j2"
-    dest: "{{ hostvars[inventory_hostname]['sssd_conf_dest'] +
-      '/sssd.conf' }}"
+    dest: "{{ hostvars[inventory_hostname]['sssd_conf_dest'] + '/sssd.conf' }}"
     group: "root"
     owner: "root"
     mode: "0600"

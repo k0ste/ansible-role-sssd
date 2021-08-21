@@ -1,6 +1,8 @@
 ---
-- import_tasks: "pre_requisite.yml"
-- include_tasks: "packages.yml"
+- ansible.builtin.import_tasks:
+    file: "pre_requisite.yml"
+- ansible.builtin.include_tasks:
+    file: "packages.yml"
   when:
     - "hostvars[inventory_hostname]['sssd'] is defined"
     - "hostvars[inventory_hostname]['sssd'] != ''"
@@ -10,7 +12,8 @@
        community.general.json_query(vars['sssd_install_package']) == 'true'"
   vars:
     sssd_install_package: "[] | map(&install_package || 'false', @) | [0]"
-- include_tasks: "deploy_sssd.yml"
+- ansible.builtin.include_tasks:
+    file: "deploy_sssd.yml"
   when:
     - "hostvars[inventory_hostname]['sssd_settings'] is defined"
     - "hostvars[inventory_hostname]['sssd_settings'] != ''"

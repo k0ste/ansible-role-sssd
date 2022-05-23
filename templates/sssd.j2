@@ -1,6 +1,6 @@
 {{ '## sssd.conf' }}
 {{ '# ' + ansible_managed }}
-{{ '# ' + 'Do not edit manually' }}
+{{ '# Do not edit manually' }}
 
 {% for s in vars['sssd_settings'] %}
 {% if s.sssd is defined and s.sssd != '' %}
@@ -38,6 +38,9 @@
 {% if vars['sssd_domains'] is defined and vars['sssd_domains'] != '' %}
 {% for sd in vars['sssd_domains'] %}
 {% include 'sssd_domain.j2' %}
+{% include 'domain/ipa.j2' %}
+{% include 'domain/ad.j2' %}
+{% include 'domain/ldap.j2' %}
 {{ '' }}
 {% endfor %}
 {% endif %}

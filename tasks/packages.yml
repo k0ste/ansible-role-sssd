@@ -1,14 +1,14 @@
 ---
-- name: sssd | Install the required packages in Redhat derivatives
+- name: "sssd | Install the required packages in Redhat derivatives"
   block:
-  - name: sssd | Install the required packages for RedHat via yum
+  - name: "sssd | Install the required packages for RedHat via yum"
     ansible.builtin.yum:
       name: "{{ hostvars[inventory_hostname]['sssd_package'] }}"
       state: "{{ vars['sssd_package_state'] | default(omit) }}"
       update_cache: "yes"
     when:
       - "hostvars[inventory_hostname]['ansible_pkg_mgr'] == 'yum'"
-  - name: sssd | Install the required packages for RedHat via dnf
+  - name: "sssd | Install the required packages for RedHat via dnf"
     ansible.builtin.dnf:
       name: "{{ hostvars[inventory_hostname]['sssd_package'] }}"
       state: "{{ vars['sssd_package_state'] | default(omit) }}"
@@ -17,14 +17,14 @@
       - "hostvars[inventory_hostname]['ansible_pkg_mgr'] == 'dnf'"
   when:
     - "hostvars[inventory_hostname]['ansible_os_family'] == 'RedHat'"
-- name: sssd | Install the required packages in Debian derivatives
+- name: "sssd | Install the required packages in Debian derivatives"
   ansible.builtin.apt:
     name: "{{ hostvars[inventory_hostname]['sssd_package'] }}"
     state: "{{ vars['sssd_package_state'] | default(omit) }}"
     update_cache: "yes"
   when:
     - "hostvars[inventory_hostname]['ansible_os_family'] == 'Debian'"
-- name: sssd | Install the required packages in ArchLinux derivatives
+- name: "sssd | Install the required packages in ArchLinux derivatives"
   community.general.pacman:
     name: "{{ hostvars[inventory_hostname]['sssd_package'] }}"
     state: "{{ vars['sssd_package_state'] | default(omit) }}"

@@ -1,8 +1,8 @@
 ---
-- name: sssd | Add the OS specific varibles
+- name: "sssd | Add the OS specific varibles"
   ansible.builtin.include_vars:
     file: "{{ hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
-- name: sssd | Set facts about sssd role
+- name: "sssd | Set facts about sssd role"
   ansible.builtin.set_fact:
     sssd_package_state: "{{ hostvars[inventory_hostname]['sssd'] |
       community.general.json_query('[].package_state[] | [0]') }}"
@@ -12,7 +12,7 @@
       community.general.json_query('[].settings[].sssd[].domains[]') }}"
     sssd_logger: "{{ hostvars[inventory_hostname]['sssd'] |
       community.general.json_query('[].logger | [0]') }}"
-- name: sssd | Assert that sssd package state in valid value
+- name: "sssd | Assert that sssd package state in valid value"
   ansible.builtin.assert:
     that:
       - "vars['sssd_package_state'] in ['present', 'latest']"
@@ -22,20 +22,20 @@
   when:
     - "vars['sssd_package_state'] is defined"
     - "vars['sssd_package_state'] != ''"
-- name: sssd | Set package state to 'present' cause value is not defined
+- name: "sssd | Set package state to 'present' cause value is not defined"
   ansible.builtin.set_fact:
     sssd_package_state: "present"
   when:
     - "vars['sssd_package_state'] is defined"
     - "vars['sssd_package_state'] == ''"
-- name: sssd | Create sssd catalog
+- name: "sssd | Create sssd catalog"
   ansible.builtin.file:
     path: "{{ hostvars[inventory_hostname]['sssd_conf_dest'] }}"
     state: "directory"
     owner: "root"
     group: "root"
     mode: "0711"
-- name: sssd | Create sysconfig catalog
+- name: "sssd | Create sysconfig catalog"
   ansible.builtin.file:
     path: "/etc/sysconfig"
     state: "directory"
@@ -45,7 +45,7 @@
   when:
     - "vars['sssd_logger'] is defined"
     - "vars['sssd_logger'] != ''"
-- name: sssd | Deploy sysconfig env logger settings
+- name: "sssd | Deploy sysconfig env logger settings"
   ansible.builtin.template:
     src: "sssd_sysconfig.j2"
     dest: "/etc/sysconfig/sssd"

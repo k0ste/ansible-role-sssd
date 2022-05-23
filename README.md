@@ -1578,7 +1578,259 @@ sssd:
 # * ldap_group_name
 # * ldap_group_gid_number
 # Default is 'ipaGroupOverride'.
-      ipa_group_override_object_class: 'ipaGroupOverride'
+        ipa_group_override_object_class: 'ipaGroupOverride'
+# Specifies the name of the Active Directory domain. This is optional. If not
+# provided, the configuration domain name is used. For proper operation, this
+# option should be specified as the lower-case version of the long version of
+# the Active Directory domain. The short domain name (also known as the
+# NetBIOS or the flat name) is autodetected by the SSSD
+        ad_domain: 'example.com'
+# A list of enabled Active Directory domains. If provided, SSSD will ignore any
+# domains not listed in this option. If left unset, all domains from the AD
+# forest will be available. For proper operation, this option must be specified
+# in all lower-case and as the fully qualified domain name of the Active
+# Directory domain. Default is not set
+        ad_enabled_domains:
+          - 'sales.example.com'
+          - 'eng.example.com'
+# The list of hostnames of the AD servers to which SSSD should connect in order
+# of preference. This is optional if autodiscovery is enabled. Trusted domains
+# will always auto-discover servers even if the primary server is explicitly
+# defined in the 'ad_server' option.
+        ad_server: ''
+        ad_backup_server: ''
+# Optional. On machines where the hostname does not reflect the fully qualified
+# name, sssd will try to expand the short name. If it is not possible or the
+# short name should be really used instead, set this parameter explicitly. This
+# field is used to determine the host principal in use in the keytab and to
+# perform dynamic DNS updates. It must match the hostname for which the keytab
+# was issued.
+        ad_hostname: ''
+# Enables DNS sites - location based service discovery. If true and service
+# discovery is enabled, the SSSD will first attempt to discover the Active
+# Directory server to connect to using the Active Directory Site Discovery and
+# fall back to the DNS SRV records if no AD site is found. The DNS SRV
+# configuration, including the discovery domain, is used during site discovery
+# as well. Default is 'true'
+        ad_enable_dns_sites: ''
+# This option specifies LDAP access control filter that the user must match in
+# order to be allowed access. Please note that the "access_provider" option must
+# be explicitly set to "ad" in order for this option to have an effect. The
+# option also supports specifying different filters per domain or forest. This
+# extended filter would consist of: "KEYWORD:NAME:FILTER". The keyword can be
+# either "DOM", "FOREST" or missing. If the keyword equals to "DOM" or is
+# missing, then "NAME" specifies the domain or subdomain the filter applies to.
+# If the keyword equals to "FOREST", then the filter equals to all domains from
+# the forest specified by "NAME". Multiple filters can be separated with the
+# "?"  character, similarly to how search bases work. Nested group membership
+# must be searched for using a special OID ":1.2.840.113556.1.4.1941:" in
+# addition to the full DOM:domain.example.org: syntax to ensure the parse
+# does not attempt to interpret the colon characters associated with the OID.
+# If you do not use this OID then nested group membership will not be resolved.
+# The most specific match is always used. For example, if the option specified
+# filter for a domain the user is a member of and a global filter, the
+# per-domain filter would be applied. If there are more matches with the same
+# specification, the first one is used. Default is not set.
+        ad_access_filter: ''
+# Specify AD site to which client should try to connect. If this option is not
+# provided, the AD site will be auto-discovered. Default is not set
+        ad_site: ''
+# By default, the SSSD connects to the Global Catalog first to retrieve users
+# from trusted domains and uses the LDAP port to retrieve group memberships or
+# as a fallback. Disabling this option makes the SSSD only connect to the LDAP
+# port of the current AD server. Please note that disabling Global Catalog
+# support does not disable retrieving users from trusted domains. The SSSD
+# would connect to the LDAP port of trusted domains instead. However, Global
+# Catalog must be used in order to resolve cross-domain group memberships.
+# Default is 'true'
+        ad_enable_gc: ''
+# This option specifies the operation mode for GPO-based access control
+# functionality: whether it operates in 'disabled' mode, 'enforcing' mode, or
+# 'permissive' mode. Please note that the "access_provider" option must be
+# explicitly set to "ad" in order for this option to have an effect. GPO-based
+# access control functionality uses GPO policy settings to determine whether or
+# not a particular user is allowed to logon to the host. For more information
+# on the supported policy settings please refer to the "ad_gpo_map" options.
+# Please note that current version of SSSD does not support Active Directory's
+# built-in groups. Built-in groups (such as Administrators with
+# 'SID S-1-5-32-544') in GPO access control rules will be ignored by SSSD. See
+# upstream issue tracker https://github.com/SSSD/sssd/issues/5063
+# Before performing access control SSSD applies group policy security filtering
+# on the GPOs. For every single user login, the applicability of the GPOs that
+# are linked to the host is checked. In order for a GPO to apply to a user, the
+# user or at least one of the groups to which it belongs must have following
+# permissions on the GPO:
+# Read: The user or one of its groups must have read access to the properties
+# of the GPO (RIGHT_DS_READ_PROPERTY)
+# Apply Group Policy: The user or at least one of its groups must be allowed to
+# apply the GPO (RIGHT_DS_CONTROL_ACCESS).
+# By default, the Authenticated Users group is present on a GPO and this group
+# has both Read and Apply Group Policy access rights. Since authentication of a
+# user must have been completed successfully before GPO security filtering and
+# access control are started, the Authenticated Users group permissions on the
+# GPO always apply also to the user. If the operation mode is set to enforcing,
+# it is possible that users that were previously allowed logon access will now
+# be denied logon access (as dictated by the GPO policy settings). In order to
+# facilitate a smooth transition for administrators, a 'permissive' mode is
+# available that will not enforce the access control rules, but will evaluate
+# them and will output a syslog message if access would have been denied. By
+# examining the logs, administrators can then make the necessary changes before
+# setting the mode to enforcing. For logging GPO-based access control debug
+# level 'trace functions' is required. There are three supported values for
+# this option:
+# 'disabled' - GPO-based access control rules are neither evaluated nor
+# enforced
+# 'enforcing' - GPO-based access control rules are evaluated and enforced
+# 'permissive' - GPO-based access control rules are evaluated, but not enforced
+# Instead, a syslog message will be emitted indicating that the user would have
+# been denied access if this option's value were set to enforcing.
+# Default: 'enforcing'
+        ad_gpo_access_control: ''
+# Normally when no applicable GPOs are found the users are allowed access. When
+# this option is set to True users will be allowed access only when explicitly
+# allowed by a GPO rule. Otherwise users will be denied access. This can be used
+# to harden security but be careful when using this option because it can deny
+# access even to users in the built-in Administrators group if no GPO rules
+# apply to them. Default is 'false'
+        ad_gpo_implicit_deny: ''
+# Normally when some group policy containers (AD object) of applicable group
+# policy objects are not readable by SSSD then users are denied access. This
+# option allows to ignore group policy containers and with them associated
+# policies if their attributes in group policy containers are not readable for
+# SSSD. Default is 'false'
+        ad_gpo_ignore_unreadable: ''
+# A comma-separated list of PAM service names for which GPO-based access
+# control is evaluated based on the InteractiveLogonRight and
+# DenyInteractiveLogonRight policy settings. Only those GPOs are evaluated for
+# which the user has Read and Apply Group Policy permission (see option
+# 'ad_gpo_access_control'. If an evaluated GPO contains the deny interactive
+# logon setting for the user or one of its groups, the user is denied local
+# access. If none of the evaluated GPOs has an interactive logon right defined,
+# the user is granted local access. If at least one evaluated GPO contains
+# interactive logon right settings, the user is granted local access only, if
+# it or at least one of its groups is part of the policy settings. Note: using
+# the Group Policy Management Editor this value is called "Allow log on
+# locally" and "Deny log on locally". It is possible to add another PAM service
+# name to the default set by using "+service_name" or to explicitly remove a
+# PAM service name from the default set by using "-service_name".
+        ad_gpo_map_interactive: ''
+# A comma-separated list of PAM service names for which GPO-based access control
+# is evaluated based on the RemoteInteractiveLogonRight and
+# DenyRemoteInteractiveLogonRight policy settings. Only those GPOs are
+# evaluated for which the user has Read and Apply Group Policy permission
+# (see option “ad_gpo_access_control”). If an evaluated GPO contains the deny
+# remote logon setting for the user or one of its groups, the user is denied
+# remote interactive access. If none of the evaluated GPOs has a remote
+# interactive logon right defined, the user is granted remote access. If at
+# least one evaluated GPO contains remote interactive logon right settings,
+# the user is granted remote access only, if it or at least one of its groups
+# is part of the policy settings. Using the Group Policy Management Editor this
+# value is called "Allow log on through Remote Desktop Services" and
+# "Deny log on through Remote Desktop Services".
+        ad_gpo_map_remote_interactive: ''
+# A comma-separated list of PAM service names for which GPO-based access control
+# is evaluated based on the NetworkLogonRight and DenyNetworkLogonRight policy
+# settings. Only those GPOs are evaluated for which the user has Read and Apply
+# Group Policy permission (see option 'ad_gpo_access_control'). If an evaluated
+# GPO contains the deny network logon setting for the user or one of its groups,
+# the user is denied network logon access. If none of the evaluated GPOs has a
+# network logon right defined, the user is granted logon access. If at least one
+# evaluated GPO contains network logon right settings, the user is granted logon
+# access only, if it or at least one of its groups is part of the policy
+# settings. Note: Using the Group Policy Management Editor this value is called
+# "Access this computer from the network" and "Deny access to this computer from
+# the network".
+        ad_gpo_map_network: ''
+# A comma-separated list of PAM service names for which GPO-based access control
+# is evaluated based on the BatchLogonRight and DenyBatchLogonRight policy
+# settings. Only those GPOs are evaluated for which the user has Read and Apply
+# Group Policy permission (see option 'ad_gpo_access_control'). If an evaluated
+# GPO contains the deny batch logon setting for the user or one of its groups,
+# the user is denied batch logon access. If none of the evaluated GPOs has a
+# batch logon right defined, the user is granted logon access. If at least one
+# evaluated GPO contains batch logon right settings, the user is granted logon
+# access only, if it or at least one of its groups is part of the policy
+# settings. Using the Group Policy Management Editor this value is called
+# "Allow log on as a batch job" and "Deny log on as a batch job"
+        ad_gpo_map_batch: ''
+# A comma-separated list of PAM service names for which GPO-based access control
+# is evaluated based on the ServiceLogonRight and DenyServiceLogonRight policy
+# settings. Only those GPOs are evaluated for which the user has Read and Apply
+# Group Policy permission (see option 'ad_gpo_access_control'). If an evaluated
+# GPO contains the deny service logon setting for the user or one of its groups,
+# the user is denied service logon access. If none of the evaluated GPOs has a
+# service logon right defined, the user is granted logon access. If at least one
+# evaluated GPO contains service logon right settings, the user is granted
+# logon access only, if it or at least one of its groups is part of the policy
+# settings. Note: Using the Group Policy Management Editor this value is called
+# "Allow log on as a service" and "Deny log on as a service".
+        ad_gpo_map_service: ''
+# A comma-separated list of PAM service names for which GPO-based access is
+# always granted, regardless of any GPO Logon Rights.
+        ad_gpo_map_permit: ''
+# A comma-separated list of PAM service names for which GPO-based access is
+# always denied, regardless of any GPO Logon Rights. Default is not set
+        ad_gpo_map_deny: ''
+# This option defines how access control is evaluated for PAM service names that
+# are not explicitly listed in one of the ad_gpo_map_* options. This option can
+# be set in two different manners. First, this option can be set to use a
+# default logon right. For example, if this option is set to 'interactive', it
+# means that unmapped PAM service names will be processed based on the
+# InteractiveLogonRight and DenyInteractiveLogonRight policy settings.
+# Alternatively, this option can be set to either always permit or always deny
+# access for unmapped PAM service names
+# Supported values for this option include:
+# 'interactive'
+# 'remote_interactive'
+# 'network'
+# 'batch'
+# 'service'
+# 'permit'
+# 'deny' (the default)
+        ad_gpo_default_right: 'true'
+# SSSD will check once a day if the machine account password is older than the
+# given age in days and try to renew it. A value of 0 will disable the renewal
+# attempt. Default is '30' days
+        ad_maximum_machine_account_password_age: ''
+# This option should only be used to test the machine account renewal task. The
+# option expects 2 integers separated by a colon (':'). The first integer
+# defines the interval in seconds how often the task is run. The second
+# specifies the initial timeout in seconds before the task is run for the first
+# time after startup. Default is '86400:750' (24h and 15m)
+        ad_machine_account_password_renewal_opts: ''
+# If enabled, when SSSD renews the machine account password, it will also be
+# updated in Samba's database. This prevents Samba's copy of the machine account
+# password from getting out of date when it is set up to use AD for
+# authentication. Default is 'false'
+        ad_update_samba_machine_account_password: ''
+# By default SSSD uses the plain LDAP port 389 and the Global Catalog port 3628.
+# If this option is set to True SSSD will use the LDAPS port 636 and Global
+# Catalog port 3629 with LDAPS protection. Since AD does not allow to have
+# multiple encryption layers on a single connection and we still want to use
+# SASL/GSSAPI or SASL/GSS-SPNEGO for authentication the SASL security property
+# maxssf is set to 0 (zero) for those connections. Default is 'false'
+        ad_use_ldaps: ''
+# If this option is set to 'true' SSSD will not filter out Domain Local groups
+# from remote domains in the AD forest. By default they are filtered out e.g.
+# when following a nested group hierarchy in remote domains because they are
+# not valid in the local domain. To be compatible with other solutions which
+# make AD users and groups available on Linux client this option was added.
+# Please note that setting this option to 'true will be against the intention
+# of Domain Local group in Active Directory and SHOULD ONLY BE USED TO
+# FACILITATE MIGRATION FROM OTHER SOLUTIONS. Although the group exists and user
+# can be member of the group the intention is that the group should be only
+# used in the domain it is defined and in no others. Since there is only one
+# type of POSIX groups the only way to achieve this on the Linux side is to
+# ignore those groups. This is also done by Active Directory as can be seen in
+# the PAC of the Kerberos ticket for a local service or in tokenGroups requests
+# where remote Domain Local groups are missing as well. Given the comments
+# above, if this option is set to 'true' the tokenGroups request must be
+# disabled by setting 'ldap_use_tokengroups' to 'false' to get consistent
+# group-memberships of a users. Additionally the Global Catalog lookup should
+# be skipped as well by setting 'ad_enable_gc' to 'false'. Finally it might be
+# necessary to modify 'ldap_group_nesting_level' if the remote Domain Local
+# groups can only be found with a deeper nesting level. Default is 'false'
+        ad_allow_remote_domain_local_groups: ''
 # Default regular expression that describes how to parse the string containing
 # user name and domain into these components. Each domain can have an individual
 # regular expression configured. For some ID providers there are also default

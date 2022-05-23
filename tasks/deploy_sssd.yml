@@ -1,5 +1,5 @@
 ---
-- name: sssd | Deploy sssd.conf
+- name: "sssd | Deploy sssd.conf"
   ansible.builtin.template:
     src: "sssd.j2"
     dest: "{{ hostvars[inventory_hostname]['sssd_conf_dest'] + '/sssd.conf' }}"
@@ -9,7 +9,7 @@
     force: "yes"
   notify:
     - "Restart sssd"
-- name: sssd | Enable sssd service
+- name: "sssd | Enable sssd service"
   ansible.builtin.systemd:
     name: "{{ hostvars[inventory_hostname]['sssd_service'] }}"
     enabled: "yes"

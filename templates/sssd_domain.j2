@@ -91,55 +91,56 @@
       sd.pwd_expiration_warning != '' %}
 {{ 'pwd_expiration_warning = ' ~ sd.pwd_expiration_warning }}
 {% endif %}
-{% if sd.id_provider is defined and
-      sd.id_provider in ['proxy', 'files', 'ldap', 'ipa', 'ad'] %}
+{% if sd.id_provider is defined and sd.id_provider in
+  ['proxy', 'files', 'ldap', 'ipa', 'ad'] %}
 {{ 'id_provider = ' + sd.id_provider }}
 {% endif %}
+{% if sd.use_fully_qualified_names is defined and
+      sd.use_fully_qualified_names in ['true', 'false'] %}
+{{ 'use_fully_qualified_names = ' + sd.use_fully_qualified_names }}
+{% endif %}
 {% if sd.ignore_group_members is defined and
-      sd.ignore_group_members in ['true', 'false'] %}
+  sd.ignore_group_members in ['true', 'false'] %}
 {{ 'ignore_group_members = ' + sd.ignore_group_members }}
 {% endif %}
-{% if sd.auth_provider is defined and
-      sd.auth_provider in ['ldap', 'krb5', 'ipa', 'sssd-ipa', 'ad', 'proxy',
-      'none'] %}
+{% if sd.auth_provider is defined and sd.auth_provider in
+  ['ldap', 'krb5', 'ipa', 'sssd-ipa', 'ad', 'proxy', 'none'] %}
 {{ 'auth_provider = ' + sd.auth_provider }}
 {% endif %}
-{% if sd.access_provider is defined and
-      sd.access_provider in ['permit', 'deny', 'ldap', 'ipa', 'sssd-ipa', 'ad',
-      'simple', 'krb5', 'proxy'] %}
+{% if sd.access_provider is defined and sd.access_provider in
+  ['permit', 'deny', 'ldap', 'ipa', 'sssd-ipa', 'ad', 'simple', 'krb5',
+  'proxy'] %}
 {{ 'access_provider = ' + sd.access_provider }}
 {% endif %}
-{% if sd.chpass_provider is defined and
-      sd.chpass_provider in ['ldap', 'krb5', 'ipa', 'sssd-ipa', 'ad', 'proxy',
-      'none'] %}
+{% if sd.chpass_provider is defined and sd.chpass_provider in ['ldap', 'krb5',
+  'ipa', 'sssd-ipa', 'ad', 'proxy', 'none'] %}
 {{ 'chpass_provider = ' + sd.chpass_provider }}
 {% endif %}
-{% if sd.sudo_provider is defined and
-      sd.sudo_provider in ['ldap', 'ipa', 'ad', 'none'] %}
+{% if sd.sudo_provider is defined and sd.sudo_provider in ['ldap', 'ipa', 'ad',
+  'none'] %}
 {{ 'sudo_provider = ' + sd.sudo_provider }}
 {% endif %}
-{% if sd.selinux_provider is defined and
-      sd.selinux_provider in ['ipa', 'none'] %}
+{% if sd.selinux_provider is defined and sd.selinux_provider in
+  ['ipa', 'none'] %}
 {{ 'selinux_provider = ' + sd.selinux_provider }}
 {% endif %}
-{% if sd.subdomains_provider is defined and
-      sd.subdomains_provider in ['ipa', 'ad', 'none'] %}
+{% if sd.subdomains_provider is defined and sd.subdomains_provider in ['ipa',
+  'ad', 'none'] %}
 {{ 'subdomains_provider = ' + sd.subdomains_provider }}
 {% endif %}
-{% if sd.session_provider is defined and
-      sd.session_provider in ['ipa', 'none'] %}
+{% if sd.session_provider is defined and sd.session_provider in ['ipa',
+  'none'] %}
 {{ 'session_provider = ' + sd.session_provider }}
 {% endif %}
-{% if sd.autofs_provider is defined and
-      sd.autofs_provider in ['ldap', 'ipa', 'ad', 'none'] %}
+{% if sd.autofs_provider is defined and sd.autofs_provider in ['ldap', 'ipa',
+  'ad', 'none'] %}
 {{ 'autofs_provider = ' + sd.autofs_provider }}
 {% endif %}
-{% if sd.hostid_provider is defined and
-      sd.hostid_provider in ['ipa', 'none'] %}
+{% if sd.hostid_provider is defined and sd.hostid_provider in ['ipa', 'none'] %}
 {{ 'hostid_provider = ' + sd.hostid_provider }}
 {% endif %}
-{% if sd.resolver_provider is defined and
-      sd.resolver_provider in ['proxy', 'ldap', 'ad', 'none'] %}
+{% if sd.resolver_provider is defined and sd.resolver_provider in
+  ['proxy', 'ldap', 'ad', 'none'] %}
 {{ 'resolver_provider = ' + sd.resolver_provider }}
 {% endif %}
 {% if sd.re_expression is defined and sd.re_expression != '' %}
@@ -148,9 +149,8 @@
 {% if sd.full_name_format is defined and sd.full_name_format != '' %}
 {{ 'full_name_format = ' + sd.full_name_format }}
 {% endif %}
-{% if sd.lookup_family_order is defined and
-      sd.lookup_family_order in ['ipv4_first', 'IPv6', 'ipv4_only',
-      'ipv6_first', 'ipv6_only'] %}
+{% if sd.lookup_family_order is defined and sd.lookup_family_order in
+  ['ipv4_first', 'IPv6', 'ipv4_only', 'ipv6_first', 'ipv6_only'] %}
 {{ 'lookup_family_order = ' + sd.lookup_family_order }}
 {% endif %}
 {% if sd.dns_resolver_timeout is defined and sd.dns_resolver_timeout != '' %}
@@ -179,7 +179,7 @@
 {{ 'cached_auth_timeout = ' ~ sd.cached_auth_timeout }}
 {% endif %}
 {% if sd.auto_private_groups is defined and
-      sd.auto_private_groups in ['true', 'hybrid' 'false'] %}
+  sd.auto_private_groups in ['true', 'hybrid' 'false'] %}
 {{ 'auto_private_groups = ' + sd.auto_private_groups }}
 {% endif %}
 {% if sd.proxy_pam_target is defined and sd.proxy_pam_target != '' %}
@@ -189,199 +189,15 @@
 {{ 'proxy_lib_name = ' + sd.proxy_lib_name }}
 {% endif %}
 {% if sd.proxy_resolver_lib_name is defined and
-      sd.proxy_resolver_lib_name != '' %}
+  sd.proxy_resolver_lib_name != '' %}
 {{ 'proxy_resolver_lib_name = ' + sd.proxy_resolver_lib_name }}
 {% endif %}
 {% if sd.proxy_fast_alias is defined and
-      sd.proxy_fast_alias in ['true', 'false'] %}
+  sd.proxy_fast_alias in ['true', 'false'] %}
 {{ 'proxy_fast_alias = ' + sd.proxy_fast_alias }}
 {% endif %}
 {% if sd.proxy_max_children is defined and sd.proxy_max_children != '' %}
 {{ 'proxy_max_children = ' ~ sd.proxy_max_children }}
-{% endif %}
-{% if sd.ldap_uri is defined and sd.ldap_uri != '' %}
-{% if sd.ldap_uri is string %}
-{{ 'ldap_uri = ' + sd.ldap_uri }}
-{% elif sd.ldap_uri is sequence %}
-{{ 'ldap_uri = ' ~ sd.ldap_uri | join(', ') }}
-{% endif %}
-{% endif %}
-{% if sd.ldap_backup_uri is defined and sd.ldap_backup_uri != '' %}
-{% if sd.ldap_backup_uri is string %}
-{{ 'ldap_backup_uri = ' + sd.ldap_backup_uri }}
-{% elif sd.ldap_backup_uri is sequence %}
-{{ 'ldap_backup_uri = ' ~ sd.ldap_backup_uri | join(', ') }}
-{% endif %}
-{% endif %}
-{% if sd.ldap_chpass_uri is defined and sd.ldap_chpass_uri != '' %}
-{% if sd.ldap_chpass_uri is string %}
-{{ 'ldap_chpass_uri = ' + sd.ldap_chpass_uri }}
-{% elif sd.ldap_chpass_uri is sequence %}
-{{ 'ldap_chpass_uri = ' ~ sd.ldap_chpass_uri | join(', ') }}
-{% endif %}
-{% endif %}
-{% if sd.ldap_chpass_backup_uri is defined and
-      sd.ldap_chpass_backup_uri != '' %}
-{% if sd.ldap_chpass_backup_uri is string %}
-{{ 'ldap_chpass_backup_uri = ' + sd.ldap_chpass_backup_uri }}
-{% elif sd.ldap_chpass_backup_uri is sequence %}
-{{ 'ldap_chpass_backup_uri = ' ~ sd.ldap_chpass_backup_uri | join(', ') }}
-{% endif %}
-{% endif %}
-{% if sd.ldap_search_base is defined and sd.ldap_search_base != '' %}
-{{ 'ldap_search_base = ' + sd.ldap_search_base }}
-{% endif %}
-{% if sd.ldap_schema is defined and
-      sd.ldap_schema in ['rfc2307', 'rfc2307bis', 'IPA', 'AD'] %}
-{{ 'ldap_schema = ' + sd.ldap_schema }}
-{% endif %}
-{% if sd.ldap_pwmodify_mode is defined and
-      sd.ldap_pwmodify_mode in ['exop', 'ldap_modify'] %}
-{{ 'ldap_pwmodify_mode = ' + sd.ldap_pwmodify_mode }}
-{% endif %}
-{% if sd.ldap_default_bind_dn is defined and sd.ldap_default_bind_dn != '' %}
-{{ 'ldap_default_bind_dn = ' + sd.ldap_default_bind_dn }}
-{% endif %}
-{% if sd.ldap_default_authtok_type is defined and
-      sd.ldap_default_authtok_type in ['password', 'obfuscated_password'] %}
-{{ 'ldap_default_authtok_type = ' + sd.ldap_default_authtok_type }}
-{% endif %}
-{% if sd.ldap_default_authtok is defined and sd.ldap_default_authtok != '' %}
-{{ 'ldap_default_authtok = ' + sd.ldap_default_authtok }}
-{% endif %}
-{% if sd.ldap_force_upper_case_realm is defined and
-      sd.ldap_force_upper_case_realm in ['true', 'false'] %}
-{{ 'ldap_force_upper_case_realm = ' + sd.ldap_force_upper_case_realm }}
-{% endif %}
-{% if sd.ldap_enumeration_refresh_timeout is defined and
-      sd.ldap_enumeration_refresh_timeout != '' %}
-{{ 'ldap_enumeration_refresh_timeout = ' ~
-    sd.ldap_enumeration_refresh_timeout }}
-{% endif %}
-{% if sd.ldap_purge_cache_timeout is defined and
-      sd.ldap_purge_cache_timeout != '' %}
-{{ 'ldap_purge_cache_timeout = ' ~ sd.ldap_purge_cache_timeout }}
-{% endif %}
-{% if sd.ldap_group_nesting_level is defined and
-      sd.ldap_group_nesting_level != '' %}
-{{ 'ldap_group_nesting_level = ' ~ sd.ldap_group_nesting_level }}
-{% endif %}
-{% if sd.ldap_use_tokengroups is defined and
-      sd.ldap_use_tokengroups in ['true', 'false'] %}
-{{ 'ldap_use_tokengroups = ' + sd.ldap_use_tokengroups }}
-{% endif %}
-{% if sd.ldap_host_search_base is defined and sd.ldap_host_search_base != '' %}
-{{ 'ldap_host_search_base = ' + sd.ldap_host_search_base }}
-{% endif %}
-{% if sd.ldap_service_search_base is defined and
-      sd.ldap_service_search_base != '' %}
-{{ 'ldap_service_search_base = ' + sd.ldap_service_search_base }}
-{% endif %}
-{% if sd.ldap_iphost_search_base is defined and
-      sd.ldap_iphost_search_base != '' %}
-{{ 'ldap_iphost_search_base = ' + sd.ldap_iphost_search_base }}
-{% endif %}
-{% if sd.ldap_search_timeout is defined and sd.ldap_search_timeout != '' %}
-{{ 'ldap_search_timeout = ' ~ sd.ldap_search_timeout }}
-{% endif %}
-{% if sd.ldap_enumeration_search_timeout is defined and
-      sd.ldap_enumeration_search_timeout != '' %}
-{{ 'ldap_enumeration_search_timeout = ' ~ sd.ldap_enumeration_search_timeout }}
-{% endif %}
-{% if sd.ldap_network_timeout is defined and sd.ldap_network_timeout != '' %}
-{{ 'ldap_network_timeout = ' ~ sd.ldap_network_timeout }}
-{% endif %}
-{% if sd.ldap_opt_timeout is defined and sd.ldap_opt_timeout != '' %}
-{{ 'ldap_opt_timeout = ' ~ sd.ldap_opt_timeout }}
-{% endif %}
-{% if sd.ldap_connection_expire_timeout is defined and
-      sd.ldap_connection_expire_timeout != '' %}
-{{ 'ldap_connection_expire_timeout = ' ~ sd.ldap_connection_expire_timeout }}
-{% endif %}
-{% if sd.ldap_connection_expire_offset is defined and
-      sd.ldap_connection_expire_offset != '' %}
-{{ 'ldap_connection_expire_offset = ' ~ sd.ldap_connection_expire_offset }}
-{% endif %}
-{% if sd.ldap_page_size is defined and sd.ldap_page_size != '' %}
-{{ 'ldap_page_size = ' ~ sd.ldap_page_size }}
-{% endif %}
-{% if sd.ldap_disable_paging is defined and
-      sd.ldap_disable_paging in ['true', 'false'] %}
-{{ 'ldap_disable_paging = ' + sd.ldap_disable_paging }}
-{% endif %}
-{% if sd.ldap_disable_range_retrieval is defined and
-      sd.ldap_disable_range_retrieval in ['true', 'false'] %}
-{{ 'ldap_disable_range_retrieval = ' + sd.ldap_disable_range_retrieval }}
-{% endif %}
-{% if sd.ldap_sasl_minssf is defined and sd.ldap_sasl_minssf != '' %}
-{{ 'ldap_sasl_minssf = ' + sd.ldap_sasl_minssf }}
-{% endif %}
-{% if sd.ldap_sasl_maxssf is defined and sd.ldap_sasl_maxssf != '' %}
-{{ 'ldap_sasl_maxssf = ' + sd.ldap_sasl_maxssf }}
-{% endif %}
-{% if sd.ldap_deref_threshold is defined and sd.ldap_deref_threshold != '' %}
-{{ 'ldap_deref_threshold = ' ~ sd.ldap_deref_threshold }}
-{% endif %}
-{% if sd.ldap_tls_reqcert is defined and
-      sd.ldap_tls_reqcert in ['never', 'allow', 'try', 'demand', 'hard'] %}
-{{ 'ldap_tls_reqcert = ' + sd.ldap_tls_reqcert }}
-{% endif %}
-{% if sd.ldap_tls_cacert is defined and sd.ldap_tls_cacert != '' %}
-{{ 'ldap_tls_cacert = ' + sd.ldap_tls_cacert }}
-{% endif %}
-{% if sd.ldap_tls_cacertdir is defined and sd.ldap_tls_cacertdir != '' %}
-{{ 'ldap_tls_cacertdir = ' + sd.ldap_tls_cacertdir }}
-{% endif %}
-{% if sd.ldap_tls_cert is defined and sd.ldap_tls_cert != '' %}
-{{ 'ldap_tls_cert = ' + sd.ldap_tls_cert }}
-{% endif %}
-{% if sd.ldap_tls_key is defined and sd.ldap_tls_key != '' %}
-{{ 'ldap_tls_key = ' + sd.ldap_tls_key }}
-{% endif %}
-{% if sd.ldap_tls_cipher_suite is defined and sd.ldap_tls_cipher_suite != '' %}
-{{ 'ldap_tls_cipher_suite = ' + sd.ldap_tls_cipher_suite }}
-{% endif %}
-{% if sd.ldap_id_use_start_tls is defined and
-      sd.ldap_id_use_start_tls in ['true', 'false'] %}
-{{ 'ldap_id_use_start_tls = ' + sd.ldap_id_use_start_tls }}
-{% endif %}
-{% if sd.ldap_id_mapping is defined and
-      sd.ldap_id_mapping in ['true', 'false'] %}
-{{ 'ldap_id_mapping = ' + sd.ldap_id_mapping }}
-{% endif %}
-{% if sd.ldap_id_mapping is defined and
-      sd.ldap_id_mapping in ['true', 'false'] %}
-{{ 'ldap_id_mapping = ' + sd.ldap_id_mapping }}
-{% endif %}
-{% if sd.ldap_min_id is defined and sd.ldap_min_id != '' %}
-{{ 'ldap_min_id = ' ~ sd.ldap_min_id }}
-{% endif %}
-{% if sd.ldap_max_id is defined and sd.ldap_max_id != '' %}
-{{ 'ldap_max_id = ' ~ sd.ldap_max_id }}
-{% endif %}
-{% if sd.ldap_sasl_mech is defined and sd.ldap_sasl_mech != '' %}
-{{ 'ldap_sasl_mech = ' + sd.ldap_sasl_mech }}
-{% endif %}
-{% if sd.ldap_sasl_authid is defined and sd.ldap_sasl_authid != '' %}
-{{ 'ldap_sasl_authid = ' + sd.ldap_sasl_authid }}
-{% endif %}
-{% if sd.ldap_sasl_realm is defined and sd.ldap_sasl_realm != '' %}
-{{ 'ldap_sasl_realm = ' + sd.ldap_sasl_realm }}
-{% endif %}
-{% if sd.ldap_sasl_canonicalize is defined and
-      sd.ldap_sasl_canonicalize in ['true', 'false'] %}
-{{ 'ldap_sasl_canonicalize = ' + sd.ldap_sasl_canonicalize }}
-{% endif %}
-{% if sd.ldap_krb5_keytab is defined and sd.ldap_krb5_keytab != '' %}
-{{ 'ldap_krb5_keytab = ' + sd.ldap_krb5_keytab }}
-{% endif %}
-{% if sd.ldap_krb5_init_creds is defined and
-      sd.ldap_krb5_init_creds in ['true', 'false'] %}
-{{ 'ldap_krb5_init_creds = ' + sd.ldap_krb5_init_creds }}
-{% endif %}
-{% if sd.ldap_krb5_ticket_lifetime is defined and
-      sd.ldap_krb5_ticket_lifetime != '' %}
-{{ 'ldap_krb5_ticket_lifetime = ' ~ sd.ldap_krb5_ticket_lifetime }}
 {% endif %}
 {% if sd.krb5_server is defined and sd.krb5_server != '' %}
 {{ 'krb5_server = ' + sd.krb5_server }}
@@ -411,11 +227,11 @@
 {{ 'krb5_validate = ' + sd.krb5_validate }}
 {% endif %}
 {% if sd.krb5_store_password_if_offline is defined and
-      sd.krb5_store_password_if_offline in ['true', 'false'] %}
+  sd.krb5_store_password_if_offline in ['true', 'false'] %}
 {{ 'krb5_store_password_if_offline = ' + sd.krb5_store_password_if_offline }}
 {% endif %}
 {% if sd.krb5_renewable_lifetime is defined and
-      sd.krb5_renewable_lifetime != '' %}
+  sd.krb5_renewable_lifetime != '' %}
 {{ 'krb5_renewable_lifetime = ' + sd.krb5_renewable_lifetime }}
 {% endif %}
 {% if sd.krb5_lifetime is defined and sd.krb5_lifetime != '' %}
@@ -453,459 +269,8 @@
 {% endif %}
 {% endif %}
 {% if sd.krb5_use_enterprise_principal is defined and
-      sd.krb5_use_enterprise_principal in ['true', 'false'] %}
+  sd.krb5_use_enterprise_principal in ['true', 'false'] %}
 {{ 'krb5_use_enterprise_principal = ' + sd.krb5_use_enterprise_principal }}
-{% endif %}
-{% if sd.ldap_pwd_policy is defined and
-      sd.ldap_pwd_policy in ['none', 'shadow', 'mit_kerberos'] %}
-{{ 'ldap_pwd_policy = ' + sd.ldap_pwd_policy }}
-{% endif %}
-{% if sd.ldap_dns_service_name is defined and sd.ldap_dns_service_name != '' %}
-{{ 'ldap_dns_service_name = ' + sd.ldap_dns_service_name }}
-{% endif %}
-{% if sd.ldap_chpass_dns_service_name is defined and
-      sd.ldap_chpass_dns_service_name != '' %}
-{{ 'ldap_chpass_dns_service_name = ' + sd.ldap_chpass_dns_service_name }}
-{% endif %}
-{% if sd.ldap_chpass_update_last_change is defined and
-      sd.ldap_chpass_update_last_change in ['true', 'false'] %}
-{{ 'ldap_chpass_update_last_change = ' + sd.ldap_chpass_update_last_change }}
-{% endif %}
-{% if sd.ldap_access_filter is defined and sd.ldap_access_filter != '' %}
-{{ 'ldap_access_filter = ' + sd.ldap_access_filter }}
-{% endif %}
-{% if sd.ldap_account_expire_policy is defined and
-      sd.ldap_account_expire_policy in ['shadow', 'ad', 'nds'] %}
-{{ 'ldap_account_expire_policy = ' + sd.ldap_account_expire_policy }}
-{% endif %}
-{% if sd.ldap_access_order is defined and sd.ldap_access_order != '' %}
-{% if sd.ldap_access_order is string %}
-{{ 'ldap_access_order = ' + sd.ldap_access_order }}
-{% elif sd.ldap_access_order is sequence %}
-{{ 'ldap_access_order = ' ~ sd.ldap_access_order | join(', ') }}
-{% endif %}
-{% endif %}
-{% if sd.ldap_deref is defined and
-      sd.ldap_deref in ['never', 'searching', 'finding', 'always'] %}
-{{ 'ldap_deref = ' + sd.ldap_deref }}
-{% endif %}
-{% if sd.ldap_rfc2307_fallback_to_local_users is defined and
-      sd.ldap_rfc2307_fallback_to_local_users in ['true', 'false'] %}
-{{ 'ldap_rfc2307_fallback_to_local_users = ' +
-    sd.ldap_rfc2307_fallback_to_local_users }}
-{% endif %}
-{% if sd.wildcard_limit is defined and sd.wildcard_limit != '' %}
-{{ 'wildcard_limit = ' ~ sd.wildcard_limit }}
-{% endif %}
-{% if sd.ldap_sudo_full_refresh_interval is defined and
-      sd.ldap_sudo_full_refresh_interval != '' %}
-{{ 'ldap_sudo_full_refresh_interval = ' ~ sd.ldap_sudo_full_refresh_interval }}
-{% endif %}
-{% if sd.ldap_sudo_smart_refresh_interval is defined and
-      sd.ldap_sudo_smart_refresh_interval != '' %}
-{{ 'ldap_sudo_smart_refresh_interval = ' ~
-    sd.ldap_sudo_smart_refresh_interval }}
-{% endif %}
-{% if sd.ldap_sudo_hostnames is defined and sd.ldap_sudo_hostnames != '' %}
-{% if sd.ldap_sudo_hostnames is string %}
-{{ 'ldap_sudo_hostnames = ' + sd.ldap_sudo_hostnames }}
-{% elif sd.ldap_sudo_hostnames is sequence %}
-{{ 'ldap_sudo_hostnames = ' ~ sd.ldap_sudo_hostnames | join(' ') }}
-{% endif %}
-{% endif %}
-{% if sd.ldap_sudo_ip is defined and sd.ldap_sudo_ip != '' %}
-{% if sd.ldap_sudo_ip is string %}
-{{ 'ldap_sudo_ip = ' + sd.ldap_sudo_ip }}
-{% elif sd.ldap_sudo_ip is sequence %}
-{{ 'ldap_sudo_ip = ' ~ sd.ldap_sudo_ip | join(' ') }}
-{% endif %}
-{% endif %}
-{% if sd.ldap_sudo_include_netgroups is defined and
-      sd.ldap_sudo_include_netgroups in ['true', 'false'] %}
-{{ 'ldap_sudo_include_netgroups = ' + sd.ldap_sudo_include_netgroups }}
-{% endif %}
-{% if sd.ldap_sudo_include_regexp is defined and
-      sd.ldap_sudo_include_regexp in ['true', 'false'] %}
-{{ 'ldap_sudo_include_regexp = ' + sd.ldap_sudo_include_regexp }}
-{% endif %}
-{% if sd.ldap_autofs_map_master_name is defined and
-      sd.ldap_autofs_map_master_name != '' %}
-{{ 'ldap_autofs_map_master_name = ' + sd.ldap_autofs_map_master_name }}
-{% endif %}
-{% if sd.ldap_autofs_map_object_class is defined and
-      sd.ldap_autofs_map_object_class in ['nisMap', 'automountMap'] %}
-{{ 'ldap_autofs_map_master_name = ' + sd.ldap_autofs_map_object_class }}
-{% endif %}
-{% if sd.ldap_autofs_map_name is defined and
-      sd.ldap_autofs_map_name in ['nisMap', 'automountMapName'] %}
-{{ 'ldap_autofs_map_name = ' + sd.ldap_autofs_map_name }}
-{% endif %}
-{% if sd.ldap_autofs_entry_object_class is defined and
-      sd.ldap_autofs_entry_object_class in ['nisObject', 'automount'] %}
-{{ 'ldap_autofs_entry_object_class = ' + sd.ldap_autofs_entry_object_class }}
-{% endif %}
-{% if sd.ldap_autofs_entry_key is defined and
-      sd.ldap_autofs_entry_key in ['cn', 'automountKey'] %}
-{{ 'ldap_autofs_entry_key = ' + sd.ldap_autofs_entry_key }}
-{% endif %}
-{% if sd.ldap_autofs_entry_value is defined and
-      sd.ldap_autofs_entry_value in ['nisMapEntry', 'automountInformation'] %}
-{{ 'ldap_autofs_entry_value = ' + sd.ldap_autofs_entry_value }}
-{% endif %}
-{% if sd.ldap_netgroup_search_base is defined and
-      sd.ldap_netgroup_search_base != '' %}
-{{ 'ldap_netgroup_search_base = ' + sd.ldap_netgroup_search_base }}
-{% endif %}
-{% if sd.ldap_user_search_base is defined and sd.ldap_user_search_base != '' %}
-{{ 'ldap_user_search_base = ' + sd.ldap_user_search_base }}
-{% endif %}
-{% if sd.ldap_group_search_base is defined and
-      sd.ldap_group_search_base != '' %}
-{{ 'ldap_group_search_base = ' + sd.ldap_group_search_base }}
-{% endif %}
-{% if sd.ldap_sudo_search_base is defined and sd.ldap_sudo_search_base != '' %}
-{{ 'ldap_sudo_search_base = ' + sd.ldap_sudo_search_base }}
-{% endif %}
-{% if sd.ldap_autofs_search_base is defined and
-      sd.ldap_autofs_search_base != '' %}
-{{ 'ldap_autofs_search_base = ' + sd.ldap_autofs_search_base }}
-{% endif %}
-{% if sd.dns_resolver_server_timeout is defined and
-      sd.dns_resolver_server_timeout != '' %}
-{{ 'dns_resolver_server_timeout = ' ~ sd.dns_resolver_server_timeout }}
-{% endif %}
-{% if sd.dns_resolver_op_timeout is defined and
-      sd.dns_resolver_op_timeout != '' %}
-{{ 'dns_resolver_op_timeout = ' ~ sd.dns_resolver_op_timeout }}
-{% endif %}
-{% if sd.dns_resolver_timeout is defined and sd.dns_resolver_timeout != '' %}
-{{ 'dns_resolver_timeout = ' ~ sd.dns_resolver_timeout }}
-{% endif %}
-{% if sd.ldap_idmap_range_min is defined and sd.ldap_idmap_range_min != '' %}
-{{ 'ldap_idmap_range_min = ' ~ sd.ldap_idmap_range_min }}
-{% endif %}
-{% if sd.ldap_idmap_range_max is defined and sd.ldap_idmap_range_max != '' %}
-{{ 'ldap_idmap_range_max = ' ~ sd.ldap_idmap_range_max }}
-{% endif %}
-{% if sd.ldap_idmap_range_size is defined and sd.ldap_idmap_range_size != '' %}
-{{ 'ldap_idmap_range_size = ' ~ sd.ldap_idmap_range_size }}
-{% endif %}
-{% if sd.ldap_idmap_default_domain_sid is defined and
-      sd.ldap_idmap_default_domain_sid != '' %}
-{{ 'ldap_idmap_default_domain_sid = ' ~ sd.ldap_idmap_default_domain_sid }}
-{% endif %}
-{% if sd.ldap_idmap_default_domain is defined and
-      sd.ldap_idmap_default_domain != '' %}
-{{ 'ldap_idmap_default_domain = ' + sd.ldap_idmap_default_domain }}
-{% endif %}
-{% if sd.ldap_idmap_autorid_compat is defined and
-      sd.ldap_idmap_autorid_compat in ['true', 'false'] %}
-{{ 'ldap_idmap_autorid_compat = ' + sd.ldap_idmap_autorid_compat }}
-{% endif %}
-{% if sd.ldap_idmap_helper_table_size is defined and
-      sd.ldap_idmap_helper_table_size != '' %}
-{{ 'ldap_idmap_helper_table_size = ' ~ sd.ldap_idmap_helper_table_size }}
-{% endif %}
-{% if sd.ldap_user_object_class is defined and
-      sd.ldap_user_object_class != '' %}
-{{ 'ldap_user_object_class = ' + sd.ldap_user_object_class }}
-{% endif %}
-{% if sd.ldap_user_name is defined and sd.ldap_user_name != '' %}
-{{ 'ldap_user_name = ' + sd.ldap_user_name }}
-{% endif %}
-{% if sd.ldap_user_uid_number is defined and sd.ldap_user_uid_number != '' %}
-{{ 'ldap_user_uid_number = ' + sd.ldap_user_uid_number }}
-{% endif %}
-{% if sd.ldap_user_gid_number is defined and sd.ldap_user_gid_number != '' %}
-{{ 'ldap_user_gid_number = ' + sd.ldap_user_gid_number }}
-{% endif %}
-{% if sd.ldap_user_primary_group is defined and
-      sd.ldap_user_primary_group != '' %}
-{{ 'ldap_user_primary_group = ' + sd.ldap_user_primary_group }}
-{% endif %}
-{% if sd.ldap_user_gecos is defined and sd.ldap_user_gecos != '' %}
-{{ 'ldap_user_gecos = ' + sd.ldap_user_gecos }}
-{% endif %}
-{% if sd.ldap_user_home_directory is defined and
-      sd.ldap_user_home_directory != '' %}
-{{ 'ldap_user_home_directory = ' + sd.ldap_user_home_directory }}
-{% endif %}
-{% if sd.ldap_user_shell is defined and sd.ldap_user_shell != '' %}
-{{ 'ldap_user_shell = ' + sd.ldap_user_shell }}
-{% endif %}
-{% if sd.ldap_user_uuid is defined and sd.ldap_user_uuid != '' %}
-{{ 'ldap_user_uuid = ' + sd.ldap_user_uuid }}
-{% endif %}
-{% if sd.ldap_user_objectsid is defined and sd.ldap_user_objectsid != '' %}
-{{ 'ldap_user_objectsid = ' + sd.ldap_user_objectsid }}
-{% endif %}
-{% if sd.ldap_user_modify_timestamp is defined and
-      sd.ldap_user_modify_timestamp != '' %}
-{{ 'ldap_user_modify_timestamp = ' + sd.ldap_user_modify_timestamp }}
-{% endif %}
-{% if sd.ldap_user_shadow_last_change is defined and
-      sd.ldap_user_shadow_last_change != '' %}
-{{ 'ldap_user_shadow_last_change = ' + sd.ldap_user_shadow_last_change }}
-{% endif %}
-{% if sd.ldap_user_shadow_min is defined and sd.ldap_user_shadow_min != '' %}
-{{ 'ldap_user_shadow_min = ' + sd.ldap_user_shadow_min }}
-{% endif %}
-{% if sd.ldap_user_shadow_max is defined and sd.ldap_user_shadow_max != '' %}
-{{ 'ldap_user_shadow_max = ' + sd.ldap_user_shadow_max }}
-{% endif %}
-{% if sd.ldap_user_shadow_warning is defined and
-      sd.ldap_user_shadow_warning != '' %}
-{{ 'ldap_user_shadow_warning = ' + sd.ldap_user_shadow_warning }}
-{% endif %}
-{% if sd.ldap_user_shadow_inactive is defined and
-      sd.ldap_user_shadow_inactive != '' %}
-{{ 'ldap_user_shadow_inactive = ' + sd.ldap_user_shadow_inactive }}
-{% endif %}
-{% if sd.ldap_user_shadow_expire is defined and
-      sd.ldap_user_shadow_expire != '' %}
-{{ 'ldap_user_shadow_expire = ' + sd.ldap_user_shadow_expire }}
-{% endif %}
-{% if sd.ldap_user_krb_last_pwd_change is defined and
-      sd.ldap_user_krb_last_pwd_change != '' %}
-{{ 'ldap_user_krb_last_pwd_change = ' + sd.ldap_user_krb_last_pwd_change }}
-{% endif %}
-{% if sd.ldap_user_krb_password_expiration is defined and
-      sd.ldap_user_krb_password_expiration != '' %}
-{{ 'ldap_user_krb_password_expiration = ' +
-    sd.ldap_user_krb_password_expiration }}
-{% endif %}
-{% if sd.ldap_user_ad_account_expires is defined and
-      sd.ldap_user_ad_account_expires != '' %}
-{{ 'ldap_user_ad_account_expires = ' + sd.ldap_user_ad_account_expires }}
-{% endif %}
-{% if sd.ldap_user_ad_user_account_control is defined and
-      sd.ldap_user_ad_user_account_control != '' %}
-{{ 'ldap_user_ad_user_account_control = ' +
-    sd.ldap_user_ad_user_account_control }}
-{% endif %}
-{% if sd.ldap_ns_account_lock is defined and sd.ldap_ns_account_lock != '' %}
-{{ 'ldap_ns_account_lock = ' + sd.ldap_ns_account_lock }}
-{% endif %}
-{% if sd.ldap_user_nds_login_disabled is defined and
-      sd.ldap_user_nds_login_disabled != '' %}
-{{ 'ldap_user_nds_login_disabled = ' + sd.ldap_user_nds_login_disabled }}
-{% endif %}
-{% if sd.ldap_user_nds_login_expiration_time is defined and
-      sd.ldap_user_nds_login_expiration_time != '' %}
-{{ 'ldap_user_nds_login_expiration_time = ' +
-    sd.ldap_user_nds_login_expiration_time }}
-{% endif %}
-{% if sd.ldap_user_nds_login_allowed_time_map is defined and
-      sd.ldap_user_nds_login_allowed_time_map != '' %}
-{{ 'ldap_user_nds_login_allowed_time_map = ' +
-    sd.ldap_user_nds_login_allowed_time_map }}
-{% endif %}
-{% if sd.ldap_user_principal is defined and
-      sd.ldap_user_principal != '' %}
-{{ 'ldap_user_principal = ' + sd.ldap_user_principal }}
-{% endif %}
-{% if sd.ldap_user_extra_attrs is defined and
-      sd.ldap_user_extra_attrs != '' %}
-{{ 'ldap_user_extra_attrs = ' + sd.ldap_user_extra_attrs }}
-{% endif %}
-{% if sd.ldap_user_ssh_public_key is defined and
-      sd.ldap_user_ssh_public_key != '' %}
-{{ 'ldap_user_ssh_public_key = ' + sd.ldap_user_ssh_public_key }}
-{% endif %}
-{% if sd.ldap_user_fullname is defined and
-      sd.ldap_user_fullname != '' %}
-{{ 'ldap_user_fullname = ' + sd.ldap_user_fullname }}
-{% endif %}
-{% if sd.ldap_user_member_of is defined and
-      sd.ldap_user_member_of != '' %}
-{{ 'ldap_user_member_of = ' + sd.ldap_user_member_of }}
-{% endif %}
-{% if sd.ldap_user_authorized_service is defined and
-      sd.ldap_user_authorized_service != '' %}
-{{ 'ldap_user_authorized_service = ' + sd.ldap_user_authorized_service }}
-{% endif %}
-{% if sd.ldap_user_authorized_host is defined and
-      sd.ldap_user_authorized_host != '' %}
-{{ 'ldap_user_authorized_host = ' + sd.ldap_user_authorized_host }}
-{% endif %}
-{% if sd.ldap_user_authorized_rhost is defined and
-      sd.ldap_user_authorized_rhost != '' %}
-{{ 'ldap_user_authorized_rhost = ' + sd.ldap_user_authorized_rhost }}
-{% endif %}
-{% if sd.ldap_user_certificate is defined and sd.ldap_user_certificate != '' %}
-{{ 'ldap_user_certificate = ' + sd.ldap_user_certificate }}
-{% endif %}
-{% if sd.ldap_user_email is defined and sd.ldap_user_email != '' %}
-{{ 'ldap_user_email = ' + sd.ldap_user_email }}
-{% endif %}
-{% if sd.ldap_group_object_class is defined and
-      sd.ldap_group_object_class != '' %}
-{{ 'ldap_group_object_class = ' + sd.ldap_group_object_class }}
-{% endif %}
-{% if sd.ldap_group_name is defined and sd.ldap_group_name != '' %}
-{{ 'ldap_group_name = ' + sd.ldap_group_name }}
-{% endif %}
-{% if sd.ldap_group_gid_number is defined and sd.ldap_group_gid_number != '' %}
-{{ 'ldap_group_gid_number = ' + sd.ldap_group_gid_number }}
-{% endif %}
-{% if sd.ldap_group_member is defined and sd.ldap_group_member != '' %}
-{{ 'ldap_group_member = ' + sd.ldap_group_member }}
-{% endif %}
-{% if sd.ldap_group_uuid is defined and sd.ldap_group_uuid != '' %}
-{{ 'ldap_group_uuid = ' + sd.ldap_group_uuid }}
-{% endif %}
-{% if sd.ldap_group_objectsid is defined and sd.ldap_group_objectsid != '' %}
-{{ 'ldap_group_objectsid = ' + sd.ldap_group_objectsid }}
-{% endif %}
-{% if sd.ldap_group_modify_timestamp is defined and
-      sd.ldap_group_modify_timestamp != '' %}
-{{ 'ldap_group_modify_timestamp = ' + sd.ldap_group_modify_timestamp }}
-{% endif %}
-{% if sd.ldap_group_type is defined and sd.ldap_group_type != '' %}
-{{ 'ldap_group_type = ' + sd.ldap_group_type }}
-{% endif %}
-{% if sd.ldap_group_external_member is defined and
-      sd.ldap_group_external_member != '' %}
-{{ 'ldap_group_external_member = ' + sd.ldap_group_external_member }}
-{% endif %}
-{% if sd.ldap_netgroup_object_class is defined and
-      sd.ldap_netgroup_object_class != '' %}
-{{ 'ldap_netgroup_object_class = ' + sd.ldap_netgroup_object_class }}
-{% endif %}
-{% if sd.ldap_netgroup_name is defined and sd.ldap_netgroup_name != '' %}
-{{ 'ldap_netgroup_name = ' + sd.ldap_netgroup_name }}
-{% endif %}
-{% if sd.ldap_netgroup_member is defined and sd.ldap_netgroup_member != '' %}
-{{ 'ldap_netgroup_member = ' + sd.ldap_netgroup_member }}
-{% endif %}
-{% if sd.ldap_netgroup_triple is defined and sd.ldap_netgroup_triple != '' %}
-{{ 'ldap_netgroup_triple = ' + sd.ldap_netgroup_triple }}
-{% endif %}
-{% if sd.ldap_netgroup_modify_timestamp is defined and
-      sd.ldap_netgroup_modify_timestamp != '' %}
-{{ 'ldap_netgroup_modify_timestamp = ' + sd.ldap_netgroup_modify_timestamp }}
-{% endif %}
-{% if sd.ldap_host_object_class is defined and
-      sd.ldap_host_object_class != '' %}
-{{ 'ldap_host_object_class = ' + sd.ldap_host_object_class }}
-{% endif %}
-{% if sd.ldap_host_name is defined and sd.ldap_host_name != '' %}
-{{ 'ldap_host_name = ' + sd.ldap_host_name }}
-{% endif %}
-{% if sd.ldap_host_fqdn is defined and sd.ldap_host_fqdn != '' %}
-{{ 'ldap_host_fqdn = ' + sd.ldap_host_fqdn }}
-{% endif %}
-{% if sd.ldap_host_serverhostname is defined and
-      sd.ldap_host_serverhostname != '' %}
-{{ 'ldap_host_serverhostname = ' + sd.ldap_host_serverhostname }}
-{% endif %}
-{% if sd.ldap_host_member_of is defined and sd.ldap_host_member_of != '' %}
-{{ 'ldap_host_member_of = ' + sd.ldap_host_member_of }}
-{% endif %}
-{% if sd.ldap_host_ssh_public_key is defined and
-      sd.ldap_host_ssh_public_key != '' %}
-{{ 'ldap_host_ssh_public_key = ' + sd.ldap_host_ssh_public_key }}
-{% endif %}
-{% if sd.ldap_host_uuid is defined and sd.ldap_host_uuid != '' %}
-{{ 'ldap_host_uuid = ' + sd.ldap_host_uuid }}
-{% endif %}
-{% if sd.ldap_service_object_class is defined and
-      sd.ldap_service_object_class != '' %}
-{{ 'ldap_service_object_class = ' + sd.ldap_service_object_class }}
-{% endif %}
-{% if sd.ldap_service_name is defined and sd.ldap_service_name != '' %}
-{{ 'ldap_service_name = ' + sd.ldap_service_name }}
-{% endif %}
-{% if sd.ldap_service_port is defined and sd.ldap_service_port != '' %}
-{{ 'ldap_service_port = ' + sd.ldap_service_port }}
-{% endif %}
-{% if sd.ldap_service_proto is defined and sd.ldap_service_proto != '' %}
-{{ 'ldap_service_proto = ' + sd.ldap_service_proto }}
-{% endif %}
-{% if sd.ldap_sudorule_object_class is defined and
-      sd.ldap_sudorule_object_class != '' %}
-{{ 'ldap_sudorule_object_class = ' + sd.ldap_sudorule_object_class }}
-{% endif %}
-{% if sd.ldap_sudorule_name is defined and sd.ldap_sudorule_name != '' %}
-{{ 'ldap_sudorule_name = ' + sd.ldap_sudorule_name }}
-{% endif %}
-{% if sd.ldap_sudorule_command is defined and sd.ldap_sudorule_command != '' %}
-{{ 'ldap_sudorule_command = ' + sd.ldap_sudorule_command }}
-{% endif %}
-{% if sd.ldap_sudorule_host is defined and sd.ldap_sudorule_host != '' %}
-{{ 'ldap_sudorule_host = ' + sd.ldap_sudorule_host }}
-{% endif %}
-{% if sd.ldap_sudorule_user is defined and sd.ldap_sudorule_user != '' %}
-{{ 'ldap_sudorule_user = ' + sd.ldap_sudorule_user }}
-{% endif %}
-{% if sd.ldap_sudorule_option is defined and sd.ldap_sudorule_option != '' %}
-{{ 'ldap_sudorule_option = ' + sd.ldap_sudorule_option }}
-{% endif %}
-{% if sd.ldap_sudorule_runasuser is defined and
-      sd.ldap_sudorule_runasuser != '' %}
-{{ 'ldap_sudorule_runasuser = ' + sd.ldap_sudorule_runasuser }}
-{% endif %}
-{% if sd.ldap_sudorule_runasgroup is defined and
-      sd.ldap_sudorule_runasgroup != '' %}
-{{ 'ldap_sudorule_runasgroup = ' + sd.ldap_sudorule_runasgroup }}
-{% endif %}
-{% if sd.ldap_sudorule_notbefore is defined and
-      sd.ldap_sudorule_notbefore != '' %}
-{{ 'ldap_sudorule_notbefore = ' + sd.ldap_sudorule_notbefore }}
-{% endif %}
-{% if sd.ldap_sudorule_notafter is defined and
-      sd.ldap_sudorule_notafter != '' %}
-{{ 'ldap_sudorule_notafter = ' + sd.ldap_sudorule_notafter }}
-{% endif %}
-{% if sd.ldap_sudorule_order is defined and sd.ldap_sudorule_order != '' %}
-{{ 'ldap_sudorule_order = ' + sd.ldap_sudorule_order }}
-{% endif %}
-{% if sd.ldap_iphost_object_class is defined and
-      sd.ldap_iphost_object_class != '' %}
-{{ 'ldap_iphost_object_class = ' + sd.ldap_iphost_object_class }}
-{% endif %}
-{% if sd.ldap_iphost_name is defined and sd.ldap_iphost_name != '' %}
-{{ 'ldap_iphost_name = ' + sd.ldap_iphost_name }}
-{% endif %}
-{% if sd.ldap_iphost_number is defined and sd.ldap_iphost_number != '' %}
-{{ 'ldap_iphost_number = ' + sd.ldap_iphost_number }}
-{% endif %}
-{% if sd.ldap_ipnetwork_object_class is defined and
-      sd.ldap_ipnetwork_object_class != '' %}
-{{ 'ldap_ipnetwork_object_class = ' + sd.ldap_ipnetwork_object_class }}
-{% endif %}
-{% if sd.ldap_ipnetwork_name is defined and sd.ldap_ipnetwork_name != '' %}
-{{ 'ldap_ipnetwork_name = ' + sd.ldap_ipnetwork_name }}
-{% endif %}
-{% if sd.ldap_ipnetwork_number is defined and sd.ldap_ipnetwork_number != '' %}
-{{ 'ldap_ipnetwork_number = ' + sd.ldap_ipnetwork_number }}
-{% endif %}
-{% if sd.ipa_domain is defined and sd.ipa_domain != '' %}
-{{ 'ipa_domain = ' + sd.ipa_domain }}
-{% endif %}
-{% if sd.ipa_server is defined and sd.ipa_server != '' %}
-{% if sd.ipa_server is string %}
-{{ 'ipa_server = ' + sd.ipa_server }}
-{% elif sd.subdomain_inherit is sequence %}
-{{ 'ipa_server = ' ~ sd.ipa_server | join(', ') }}
-{% endif %}
-{% endif %}
-{% if sd.ipa_server is defined and sd.ipa_server != '' %}
-{% if sd.ipa_server is string %}
-{{ 'ipa_server = ' + sd.ipa_server }}
-{% elif sd.ipa_server is sequence %}
-{{ 'ipa_server = ' ~ sd.ipa_server | join(', ') }}
-{% endif %}
-{% endif %}
-{% if sd.ipa_backup_server is defined and sd.ipa_server != '' %}
-{% if sd.ipa_backup_server is string %}
-{{ 'ipa_backup_server = ' + sd.ipa_backup_server }}
-{% elif sd.ipa_backup_server is sequence %}
-{{ 'ipa_backup_server = ' ~ sd.ipa_backup_server | join(', ') }}
-{% endif %}
-{% endif %}
-{% if sd.ipa_hostname is defined and sd.ipa_hostname != '' %}
-{{ 'ipa_hostname = ' + sd.ipa_hostname }}
 {% endif %}
 {% if sd.dyndns_update is defined and sd.dyndns_update in ['true', 'false'] %}
 {{ 'dyndns_update = ' + sd.dyndns_update }}
@@ -923,100 +288,38 @@
 {% if sd.dyndns_auth is defined and sd.dyndns_auth != '' %}
 {{ 'dyndns_auth = ' + sd.dyndns_auth }}
 {% endif %}
-{% if sd.ipa_enable_dns_sites is defined and
-      sd.ipa_enable_dns_sites in ['true', 'false'] %}
-{{ 'ipa_enable_dns_sites = ' + sd.ipa_enable_dns_sites }}
-{% endif %}
 {% if sd.dyndns_refresh_interval is defined and
-      sd.dyndns_refresh_interval != '' %}
+  sd.dyndns_refresh_interval != '' %}
 {{ 'dyndns_refresh_interval = ' ~ sd.dyndns_refresh_interval }}
 {% endif %}
-{% if sd.dyndns_update_ptr is defined and
-      sd.dyndns_update_ptr in ['true', 'false'] %}
+{% if sd.dyndns_update_ptr is defined and sd.dyndns_update_ptr in
+  ['true', 'false'] %}
 {{ 'dyndns_update_ptr = ' + sd.dyndns_update_ptr }}
 {% endif %}
-{% if sd.dyndns_force_tcp is defined and
-      sd.dyndns_force_tcp in ['true', 'false'] %}
+{% if sd.dyndns_force_tcp is defined and sd.dyndns_force_tcp in
+  ['true', 'false'] %}
 {{ 'dyndns_force_tcp = ' + sd.dyndns_force_tcp }}
 {% endif %}
 {% if sd.dyndns_server is defined and sd.dyndns_server != '' %}
 {{ 'dyndns_server = ' + sd.dyndns_server }}
 {% endif %}
-{% if sd.dyndns_update_per_family is defined and
-      sd.dyndns_update_per_family in ['true', 'false'] %}
+{% if sd.dyndns_update_per_family is defined and sd.dyndns_update_per_family in
+  ['true', 'false'] %}
 {{ 'dyndns_update_per_family = ' + sd.dyndns_update_per_family }}
-{% endif %}
-{% if sd.ipa_deskprofile_search_base is defined and
-      sd.ipa_deskprofile_search_base != '' %}
-{{ 'ipa_deskprofile_search_base = ' + sd.ipa_deskprofile_search_base }}
-{% endif %}
-{% if sd.ipa_hbac_search_base is defined and sd.ipa_hbac_search_base != '' %}
-{{ 'ipa_hbac_search_base = ' + sd.ipa_hbac_search_base }}
-{% endif %}
-{% if sd.ipa_selinux_search_base is defined and
-      sd.ipa_selinux_search_base != '' %}
-{{ 'ipa_selinux_search_base = ' + sd.ipa_selinux_search_base }}
-{% endif %}
-{% if sd.ipa_subdomains_search_base is defined and
-      sd.ipa_subdomains_search_base != '' %}
-{{ 'ipa_subdomains_search_base = ' + sd.ipa_subdomains_search_base }}
-{% endif %}
-{% if sd.ipa_master_domain_search_base is defined and
-      sd.ipa_master_domain_search_base != '' %}
-{{ 'ipa_master_domain_search_base = ' + sd.ipa_master_domain_search_base }}
-{% endif %}
-{% if sd.ipa_views_search_base is defined and
-      sd.ipa_views_search_base != '' %}
-{{ 'ipa_views_search_base = ' + sd.ipa_views_search_base }}
-{% endif %}
-{% if sd.krb5_realm is defined and sd.krb5_realm != '' %}
-{{ 'krb5_realm = ' + sd.krb5_realm }}
 {% endif %}
 {% if sd.krb5_confd_path is defined and sd.krb5_confd_path != '' %}
 {{ 'krb5_confd_path = ' + sd.krb5_confd_path }}
 {% endif %}
-{% if sd.ipa_deskprofile_refresh is defined and
-      sd.ipa_deskprofile_refresh != '' %}
-{{ 'krb5_conipa_deskprofile_refreshfd_path = ' ~ sd.ipa_deskprofile_refresh }}
+{% if sd.override_homedir is defined and sd.override_homedir != '' %}
+{{ 'override_homedir = ' + sd.override_homedir }}
 {% endif %}
-{% if sd.ipa_deskprofile_request_interval is defined and
-      sd.ipa_deskprofile_request_interval != '' %}
-{{ 'ipa_deskprofile_request_interval = ' ~
-    sd.ipa_deskprofile_request_interval }}
+{% if sd.homedir_substring is defined and sd.homedir_substring != '' %}
+{{ 'homedir_substring = ' + sd.homedir_substring }}
 {% endif %}
-{% if sd.ipa_hbac_refresh is defined and sd.ipa_hbac_refresh != '' %}
-{{ 'ipa_hbac_refresh = ' ~ sd.ipa_hbac_refresh }}
+{% if sd.shell_fallback is defined and sd.shell_fallback != '' %}
+{{ 'shell_fallback = ' + sd.shell_fallback }}
 {% endif %}
-{% if sd.ipa_hbac_selinux is defined and sd.ipa_hbac_selinux != '' %}
-{{ 'ipa_hbac_selinux = ' ~ sd.ipa_hbac_selinux }}
-{% endif %}
-{% if sd.ipa_server_mode is defined and
-      sd.ipa_server_mode in ['true', 'false'] %}
-{{ 'ipa_server_mode = ' + sd.ipa_server_mode }}
-{% endif %}
-{% if sd.ipa_automount_location is defined and
-      sd.ipa_automount_location != '' %}
-{{ 'ipa_automount_location = ' + sd.ipa_automount_location }}
-{% endif %}
-{% if sd.ipa_view_class is defined and sd.ipa_view_class != '' %}
-{{ 'ipa_view_class = ' + sd.ipa_view_class }}
-{% endif %}
-{% if sd.ipa_view_name is defined and sd.ipa_view_name != '' %}
-{{ 'ipa_view_name = ' + sd.ipa_view_name }}
-{% endif %}
-{% if sd.ipa_override_object_class is defined and
-      sd.ipa_override_object_class != '' %}
-{{ 'ipa_override_object_class = ' + sd.ipa_override_object_class }}
-{% endif %}
-{% if sd.ipa_anchor_uuid is defined and sd.ipa_anchor_uuid != '' %}
-{{ 'ipa_anchor_uuid = ' + sd.ipa_anchor_uuid }}
-{% endif %}
-{% if sd.ipa_user_override_object_class is defined and
-      sd.ipa_user_override_object_class != '' %}
-{{ 'ipa_user_override_object_class = ' + sd.ipa_user_override_object_class }}
-{% endif %}
-{% if sd.ipa_group_override_object_class is defined and
-      sd.ipa_group_override_object_class != '' %}
-{{ 'ipa_group_override_object_class = ' + sd.ipa_group_override_object_class }}
+{% if sd.default_shell is defined and sd.default_shell != '' %}
+{{ 'default_shell = ' + sd.default_shell }}
 {% endif %}
 {% endif %}

@@ -7,8 +7,8 @@
     - "hostvars[inventory_hostname]['sssd'] is defined"
     - "hostvars[inventory_hostname]['sssd'] != ''"
     - "hostvars[inventory_hostname]['sssd'] |
-       json_query(vars['sssd_restart']) is defined"
+       community.general.json_query(vars['sssd_restart']) is defined"
     - "hostvars[inventory_hostname]['sssd'] |
-       json_query(vars['sssd_restart']) == 'true'"
+       community.general.json_query(vars['sssd_restart']) == 'true'"
   vars:
     sssd_restart: "[] | map(&restart || 'false', @) | [0]"

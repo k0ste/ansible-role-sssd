@@ -16,7 +16,7 @@
   ansible.builtin.assert:
     that:
       - "vars['sssd_package_state'] in ['present', 'latest']"
-    msg: "{{ 'package_state must be in `present` or `latest`, current is: ' +
+    fail_msg: "{{ 'package_state must be in `present` or `latest`, current is: ' +
       vars['sssd_package_state'] }}"
     quiet: "true"
   when:

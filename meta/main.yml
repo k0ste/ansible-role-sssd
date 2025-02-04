@@ -1,5 +1,7 @@
 ---
 galaxy_info:
+  role_name: "sssd"
+  namespace: "none"
   author: "Konstantin Shalygin <k0ste@k0ste.ru>"
   issue_tracker_url: "https://github.com/k0ste/ansible-role-sssd"
   description: "sssd - System Security Services Daemon"
@@ -7,14 +9,9 @@ galaxy_info:
   license: "GPL"
   min_ansible_version: "3.0.0"
   platforms:
-    - name: Archlinux
+    - name: "EL"
       versions:
-        - any
-    - name: EL
-      versions:
-        - 7
-        - 8
-        - 9
-  categories:
-    - system
+        - 'all'
+  galaxy_tags:
+    - 'monitoring'
 dependencies: []

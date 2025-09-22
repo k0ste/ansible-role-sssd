@@ -19,4 +19,6 @@
     file: "deploy.yml"
   when:
     - "hostvars[inventory_hostname]['sssd_settings'] is defined"
+    - "hostvars[inventory_hostname]['sssd_settings'] != []"
     - "hostvars[inventory_hostname]['sssd_settings'] != ''"
+    - "hostvars[inventory_hostname]['sssd_settings'] != None"

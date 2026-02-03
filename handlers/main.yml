@@ -1,14 +1,14 @@
 ---
-- name: Restart sssd
+- name: "sssd | Restart sssd systemd service"
   ansible.builtin.systemd:
     name: "{{ hostvars[inventory_hostname]['sssd_service'] }}"
     state: "restarted"
+  listen: "Restart sssd"
   when:
     - "hostvars[inventory_hostname]['sssd'] is defined"
-    - "hostvars[inventory_hostname]['sssd'] != ''"
+    - "hostvars[inventory_hostname]['sssd'] not in ['', [], '[]', None]"
     - "hostvars[inventory_hostname]['sssd'] |
-       community.general.json_query(vars['sssd_restart']) is defined"
-    - "hostvars[inventory_hostname]['sssd'] |
-       community.general.json_query(vars['sssd_restart']) == 'true'"
+       community.general.json_query(lookup('ansible.builtin.vars',
+      'sssd_restart', default='')) == 'true'"
   vars:
     sssd_restart: "[] | map(&restart || 'false', @) | [0]"

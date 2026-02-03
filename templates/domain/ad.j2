@@ -1,106 +1,120 @@
-{% if sd.ad_domain is defined and sd.ad_domain != '' %}
-{{ 'ad_domain = ' + sd.ad_domain }}
+{% if sd['ad_domain'] is defined and sd['ad_domain']
+  not in ['', [], '[]', None] %}
+{{ 'ad_domain = ' + sd['ad_domain'] }}
 {% endif %}
-{% if sd.ad_enabled_domains is defined and sd.ad_enabled_domains != '' %}
-{% if sd.ad_enabled_domains is string %}
-{{ 'ad_enabled_domains = ' + sd.ad_enabled_domains }}
-{% elif sd.ad_enabled_domains is sequence %}
-{{ 'ad_enabled_domains = ' + sd.ad_enabled_domains | join(', ') }}
-{% endif %}
-{% endif %}
-{% if sd.ad_server is defined and sd.ad_server != '' %}
-{% if sd.ad_server is string %}
-{{ 'ad_server = ' + sd.ad_server }}
-{% elif sd.ad_server is sequence %}
-{{ 'ad_server = ' + sd.ad_server | join(', ') }}
+{% if sd['ad_enabled_domains'] is defined and sd['ad_enabled_domains']
+  not in ['', [], '[]', None] %}
+{% if sd['ad_enabled_domains'] is string %}
+{{ 'ad_enabled_domains = ' + sd['ad_enabled_domains'] }}
+{% elif sd['ad_enabled_domains'] is sequence %}
+{{ 'ad_enabled_domains = ' + (sd.ad_enabled_domains | join(', ')) }}
 {% endif %}
 {% endif %}
-{% if sd.ad_backup_server is defined and sd.ad_backup_server != '' %}
-{% if sd.ad_backup_server is string %}
-{{ 'ad_backup_server = ' + sd.ad_backup_server }}
-{% elif sd.ad_backup_server is sequence %}
-{{ 'ad_backup_server = ' + sd.ad_backup_server | join(', ') }}
+{% if sd['ad_server'] is defined and sd['ad_server']
+  not in ['', [], '[]', None] %}
+{% if sd['ad_server'] is string %}
+{{ 'ad_server = ' + sd['ad_server'] }}
+{% elif sd['ad_server'] is sequence %}
+{{ 'ad_server = ' + (sd['ad_server'] | join(', ')) }}
 {% endif %}
 {% endif %}
-{% if sd.ad_hostname is defined and sd.ad_hostname != '' %}
-{{ 'ad_hostname = ' + sd.ad_hostname }}
+{% if sd['ad_backup_server'] is defined and sd['ad_backup_server']
+  not in ['', [], '[]', None] %}
+{% if sd['ad_backup_server'] is string %}
+{{ 'ad_backup_server = ' + sd['ad_backup_server'] }}
+{% elif sd['ad_backup_server'] is sequence %}
+{{ 'ad_backup_server = ' + (sd.ad_backup_server | join(', ')) }}
 {% endif %}
-{% if sd.ad_enable_dns_sites is defined and sd.ad_enable_dns_sites in
+{% endif %}
+{% if sd['ad_hostname'] is defined and sd['ad_hostname']
+  not in ['', [], '[]', None] %}
+{{ 'ad_hostname = ' + sd['ad_hostname'] }}
+{% endif %}
+{% if sd['ad_enable_dns_sites'] is defined and sd['ad_enable_dns_sites'] in
   ['true', 'false'] %}
-{{ 'ad_enable_dns_sites = ' + sd.ad_enable_dns_sites }}
+{{ 'ad_enable_dns_sites = ' + sd['ad_enable_dns_sites'] }}
 {% endif %}
-{% if sd.ad_access_filter is defined and sd.ad_access_filter != '' %}
-{{ 'ad_access_filter = ' + sd.ad_access_filter }}
+{% if sd['ad_access_filter'] is defined and sd['ad_access_filter']
+  not in ['', [], '[]', None] %}
+{{ 'ad_access_filter = ' + sd['ad_access_filter'] }}
 {% endif %}
-{% if sd.ad_site is defined and sd.ad_site != '' %}
-{{ 'ad_site = ' + sd.ad_site }}
+{% if sd['ad_site'] is defined and sd['ad_site'] not in ['', [], '[]', None] %}
+{{ 'ad_site = ' + sd['ad_site'] }}
 {% endif %}
-{% if sd.ad_enable_gc is defined and sd.ad_enable_gc in ['true', 'false'] %}
-{{ 'ad_enable_gc = ' + sd.ad_enable_gc }}
+{% if sd['ad_enable_gc'] is defined and sd['ad_enable_gc'] in
+  ['true', 'false'] %}
+{{ 'ad_enable_gc = ' + sd['ad_enable_gc'] }}
 {% endif %}
-{% if sd.ad_gpo_access_control is defined and sd.ad_gpo_access_control in
+{% if sd['ad_gpo_access_control'] is defined and sd['ad_gpo_access_control'] in
   ['disabled', 'enforcing', 'permissive'] %}
-{{ 'ad_gpo_access_control = ' + sd.ad_gpo_access_control }}
+{{ 'ad_gpo_access_control = ' + sd['ad_gpo_access_control'] }}
 {% endif %}
-{% if sd.ad_gpo_implicit_deny is defined and sd.ad_gpo_implicit_deny in
+{% if sd['ad_gpo_implicit_deny'] is defined and sd['ad_gpo_implicit_deny'] in
   ['true', 'false'] %}
-{{ 'ad_gpo_implicit_deny = ' + sd.ad_gpo_implicit_deny }}
+{{ 'ad_gpo_implicit_deny = ' + sd['ad_gpo_implicit_deny'] }}
 {% endif %}
-{% if sd.ad_gpo_ignore_unreadable is defined and sd.ad_gpo_ignore_unreadable in
-  ['true', 'false'] %}
-{{ 'ad_gpo_ignore_unreadable = ' + sd.ad_gpo_ignore_unreadable }}
+{% if sd['ad_gpo_ignore_unreadable'] is defined and
+  sd['ad_gpo_ignore_unreadable'] in ['true', 'false'] %}
+{{ 'ad_gpo_ignore_unreadable = ' + sd['ad_gpo_ignore_unreadable'] }}
 {% endif %}
-{% if sd.ad_gpo_cache_timeout is defined and sd.ad_gpo_cache_timeout != '' %}
-{{ 'ad_gpo_cache_timeout = ' ~ sd.ad_gpo_cache_timeout }}
+{% if sd['ad_gpo_cache_timeout'] is defined and
+  sd['ad_gpo_cache_timeout'] not in ['', [], '[]', None] %}
+{{ 'ad_gpo_cache_timeout = ' ~ sd['ad_gpo_cache_timeout'] }}
 {% endif %}
-{% if sd.ad_gpo_map_interactive is defined and
-  sd.ad_gpo_map_interactive != '' %}
-{{ 'ad_gpo_map_interactive = ' + sd.ad_gpo_map_interactive }}
+{% if sd['ad_gpo_map_interactive'] is defined and
+  sd['ad_gpo_map_interactive'] not in ['', [], '[]', None] %}
+{{ 'ad_gpo_map_interactive = ' + sd['ad_gpo_map_interactive'] }}
 {% endif %}
-{% if sd.ad_gpo_map_remote_interactive is defined and
-  sd.ad_gpo_map_remote_interactive != '' %}
-{{ 'ad_gpo_map_remote_interactive = ' + sd.ad_gpo_map_remote_interactive }}
+{% if sd['ad_gpo_map_remote_interactive'] is defined and
+  sd['ad_gpo_map_remote_interactive'] not in ['', [], '[]', None] %}
+{{ 'ad_gpo_map_remote_interactive = ' + sd['ad_gpo_map_remote_interactive'] }}
 {% endif %}
-{% if sd.ad_gpo_map_network is defined and sd.ad_gpo_map_network != '' %}
-{{ 'ad_gpo_map_network = ' + sd.ad_gpo_map_network }}
+{% if sd['ad_gpo_map_network'] is defined and
+  sd['ad_gpo_map_network'] not in ['', [], '[]', None] %}
+{{ 'ad_gpo_map_network = ' + sd['ad_gpo_map_network'] }}
 {% endif %}
-{% if sd.ad_gpo_map_batch is defined and sd.ad_gpo_map_batch != '' %}
-{{ 'ad_gpo_map_batch = ' + sd.ad_gpo_map_batch }}
+{% if sd['ad_gpo_map_batch'] is defined and
+  sd['ad_gpo_map_batch'] not in ['', [], '[]', None] %}
+{{ 'ad_gpo_map_batch = ' + sd['ad_gpo_map_batch'] }}
 {% endif %}
-{% if sd.ad_gpo_map_service is defined and sd.ad_gpo_map_service != '' %}
-{{ 'ad_gpo_map_service = ' + sd.ad_gpo_map_service }}
+{% if sd['ad_gpo_map_service'] is defined and sd['ad_gpo_map_service']
+  not in ['', [], '[]', None] %}
+{{ 'ad_gpo_map_service = ' + sd['ad_gpo_map_service'] }}
 {% endif %}
-{% if sd.ad_gpo_map_permit is defined and sd.ad_gpo_map_permit != '' %}
-{{ 'ad_gpo_map_permit = ' + sd.ad_gpo_map_permit }}
+{% if sd['ad_gpo_map_permit'] is defined and sd['ad_gpo_map_permit']
+  not in ['', [], '[]', None] %}
+{{ 'ad_gpo_map_permit = ' + sd['ad_gpo_map_permit'] }}
 {% endif %}
-{% if sd.ad_gpo_map_deny is defined and sd.ad_gpo_map_deny != '' %}
-{{ 'ad_gpo_map_deny = ' + sd.ad_gpo_map_deny }}
+{% if sd['ad_gpo_map_deny'] is defined and sd['ad_gpo_map_deny']
+  not in ['', [], '[]', None] %}
+{{ 'ad_gpo_map_deny = ' + sd['ad_gpo_map_deny'] }}
 {% endif %}
-{% if sd.ad_gpo_default_right is defined and sd.ad_gpo_default_right in
+{% if sd['ad_gpo_default_right'] is defined and sd['ad_gpo_default_right'] in
   ['interactive', 'remote_interactive', 'network', 'batch', 'service', 'permit',
   'deny'] %}
-{{ 'ad_gpo_default_right = ' + sd.ad_gpo_default_right }}
+{{ 'ad_gpo_default_right = ' + sd['ad_gpo_default_right'] }}
 {% endif %}
-{% if sd.ad_maximum_machine_account_password_age is defined and
-  sd.ad_maximum_machine_account_password_age != '' %}
+{% if sd['ad_maximum_machine_account_password_age'] is defined and
+  sd['ad_maximum_machine_account_password_age'] not in ['', [], '[]', None] %}
 {{ 'ad_maximum_machine_account_password_age = ' ~
-  sd.ad_maximum_machine_account_password_age }}
+  sd['ad_maximum_machine_account_password_age'] }}
 {% endif %}
-{% if sd.ad_machine_account_password_renewal_opts is defined and
-  sd.ad_machine_account_password_renewal_opts != '' %}
+{% if sd['ad_machine_account_password_renewal_opts'] is defined and
+  sd['ad_machine_account_password_renewal_opts'] not in ['', [], '[]', None] %}
 {{ 'ad_machine_account_password_renewal_opts = ' +
-  sd.ad_machine_account_password_renewal_opts }}
+  sd['ad_machine_account_password_renewal_opts'] }}
 {% endif %}
-{% if sd.ad_update_samba_machine_account_password is defined and
-  sd.ad_update_samba_machine_account_password in ['true', 'false'] %}
+{% if sd['ad_update_samba_machine_account_password'] is defined and
+  sd['ad_update_samba_machine_account_password'] in ['true', 'false'] %}
 {{ 'ad_update_samba_machine_account_password = ' +
-  sd.ad_update_samba_machine_account_password }}
+  sd['ad_update_samba_machine_account_password'] }}
 {% endif %}
-{% if sd.ad_use_ldaps is defined and sd.ad_use_ldaps in ['true', 'false'] %}
-{{ 'ad_use_ldaps = ' + sd.ad_use_ldaps }}
+{% if sd['ad_use_ldaps'] is defined and sd['ad_use_ldaps'] in
+  ['true', 'false'] %}
+{{ 'ad_use_ldaps = ' + sd['ad_use_ldaps'] }}
 {% endif %}
-{% if sd.ad_allow_remote_domain_local_groups is defined and
-  sd.ad_allow_remote_domain_local_groups in ['true', 'false'] %}
+{% if sd['ad_allow_remote_domain_local_groups'] is defined and
+  sd['ad_allow_remote_domain_local_groups'] in ['true', 'false'] %}
 {{ 'ad_allow_remote_domain_local_groups = ' +
-  sd.ad_allow_remote_domain_local_groups }}
+  sd['ad_allow_remote_domain_local_groups'] }}
 {% endif %}

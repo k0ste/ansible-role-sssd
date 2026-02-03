@@ -9,16 +9,28 @@
     force: "yes"
   notify:
     - "Restart sssd"
+- name: "sssd | Deploy sysconfig env logger settings"
+  ansible.builtin.template:
+    src: "sssd_sysconfig.j2"
+    dest: "/etc/sysconfig/sssd"
+    group: "root"
+    owner: "root"
+    mode: "0644"
+    force: "yes"
+  when:
+    - "lookup('ansible.builtin.vars', 'sssd_logger',
+      default='') not in ['', [], '[]', None]"
+  notify:
+    - "Restart sssd"
 - name: "sssd | Enable sssd service"
   ansible.builtin.systemd:
     name: "{{ hostvars[inventory_hostname]['sssd_service'] }}"
     enabled: "yes"
   when:
     - "hostvars[inventory_hostname]['sssd'] is defined"
-    - "hostvars[inventory_hostname]['sssd'] != ''"
+    - "hostvars[inventory_hostname]['sssd'] not in ['', [], '[]', None]"
     - "hostvars[inventory_hostname]['sssd'] |
-       community.general.json_query(vars['sssd_enable']) is defined"
-    - "hostvars[inventory_hostname]['sssd'] |
-       community.general.json_query(vars['sssd_enable']) == 'true'"
+       community.general.json_query(lookup('ansible.builtin.vars',
+      'sssd_enable', default='')) == 'true'"
   vars:
     sssd_enable: "[] | map(&enable || 'false', @) | [0]"

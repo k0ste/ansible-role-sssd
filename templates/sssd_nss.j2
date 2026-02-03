@@ -1,84 +1,100 @@
-{% for sn in s.nss %}
-{% if loop.first %}
+{% for sn in s['nss'] %}
+{% if loop['first'] %}
 {{ '[nss]' }}
 {% endif %}
-{% if sn.debug_level is defined and sn.debug_level != '' %}
-{{ 'debug_level = ' ~ sn.debug_level }}
+{% if sn['debug_level'] is defined and sn['debug_level']
+  not in ['', [], '[]', None] %}
+{{ 'debug_level = ' ~ sn['debug_level'] }}
 {% endif %}
-{% if sn.debug_timestamps is defined and
-      sn.debug_timestamps in ['true', 'false'] %}
-{{ 'debug_timestamps = ' + sn.debug_timestamps }}
+{% if sn['debug_timestamps'] is defined and sn['debug_timestamps'] in
+  ['true', 'false'] %}
+{{ 'debug_timestamps = ' + sn['debug_timestamps'] }}
 {% endif %}
-{% if sn.debug_microseconds is defined and
-      sn.debug_microseconds in ['true', 'false'] %}
-{{ 'debug_microseconds = ' + sn.debug_microseconds }}
+{% if sn['debug_microseconds'] is defined and sn['debug_microseconds'] in
+  ['true', 'false'] %}
+{{ 'debug_microseconds = ' + sn['debug_microseconds'] }}
 {% endif %}
-{% if sn.timeout is defined and sn.timeout != '' %}
-{{ 'timeout = ' ~ sn.timeout }}
+{% if sn['timeout'] is defined and sn['timeout']
+  not in ['', [], '[]', None] %}
+{{ 'timeout = ' ~ sn['timeout'] }}
 {% endif %}
-{% if sn.enum_cache_timeout is defined and sn.enum_cache_timeout != '' %}
-{{ 'enum_cache_timeout = ' ~ sn.enum_cache_timeout }}
+{% if sn['enum_cache_timeout'] is defined and sn['enum_cache_timeout']
+  not in ['', [], '[]', None] %}
+{{ 'enum_cache_timeout = ' ~ sn['enum_cache_timeout'] }}
 {% endif %}
-{% if sn.entry_cache_nowait_percentage is defined and
-      sn.entry_cache_nowait_percentage != '' %}
-{{ 'entry_cache_nowait_percentage = ' ~ sn.entry_cache_nowait_percentage }}
+{% if sn['entry_cache_nowait_percentage'] is defined and
+  sn['entry_cache_nowait_percentage'] not in ['', [], '[]', None] %}
+{{ 'entry_cache_nowait_percentage = ' ~ sn['entry_cache_nowait_percentage'] }}
 {% endif %}
-{% if sn.entry_negative_timeout is defined and
-      sn.entry_negative_timeout != '' %}
-{{ 'entry_negative_timeout = ' ~ sn.entry_negative_timeout }}
+{% if sn['entry_negative_timeout'] is defined and sn['entry_negative_timeout']
+  not in ['', [], '[]', None] %}
+{{ 'entry_negative_timeout = ' ~ sn['entry_negative_timeout'] }}
 {% endif %}
-{% if sn.entry_negative_timeout is defined and
-      sn.entry_negative_timeout != '' %}
-{{ 'entry_negative_timeout = ' ~ sn.entry_negative_timeout }}
+{% if sn['entry_negative_timeout'] is defined and sn['entry_negative_timeout']
+  not in ['', [], '[]', None] %}
+{{ 'entry_negative_timeout = ' ~ sn['entry_negative_timeout'] }}
 {% endif %}
-{% if sn.local_negative_timeout is defined and
-      sn.local_negative_timeout != '' %}
-{{ 'local_negative_timeout = ' ~ sn.local_negative_timeout }}
+{% if sn['local_negative_timeout'] is defined and sn['local_negative_timeout']
+  not in ['', [], '[]', None] %}
+{{ 'local_negative_timeout = ' ~ sn['local_negative_timeout'] }}
 {% endif %}
-{% if sn.filter_users is defined and sn.filter_users != '' %}
-{{ 'filter_users = ' + sn.filter_users }}
+{% if sn['filter_users'] is defined and sn['filter_users']
+  not in ['', [], '[]', None] %}
+{{ 'filter_users = ' + sn['filter_users'] }}
 {% endif %}
-{% if sn.filter_groups is defined and sn.filter_groups != '' %}
-{{ 'filter_groups = ' + sn.filter_groups }}
+{% if sn['filter_groups'] is defined and sn['filter_groups']
+  not in ['', [], '[]', None] %}
+{{ 'filter_groups = ' + sn['filter_groups'] }}
 {% endif %}
-{% if sn.filter_users_in_groups is defined and
-      sn.filter_users_in_groups in ['true', 'false'] %}
-{{ 'filter_users_in_groups = ' + sn.filter_users_in_groups }}
+{% if sn['filter_users_in_groups'] is defined and
+  sn['filter_users_in_groups'] in ['true', 'false'] %}
+{{ 'filter_users_in_groups = ' + sn['filter_users_in_groups'] }}
 {% endif %}
-{% if sn.override_homedir is defined and sn.override_homedir != '' %}
-{{ 'override_homedir = ' + sn.override_homedir }}
+{% if sn['override_homedir'] is defined and sn['override_homedir']
+  not in ['', [], '[]', None] %}
+{{ 'override_homedir = ' + sn['override_homedir'] }}
 {% endif %}
-{% if sn.homedir_substring is defined and sn.homedir_substring != '' %}
-{{ 'homedir_substring = ' + sn.homedir_substring }}
+{% if sn['homedir_substring'] is defined and sn['homedir_substring']
+  not in ['', [], '[]', None] %}
+{{ 'homedir_substring = ' + sn['homedir_substring'] }}
 {% endif %}
-{% if sn.fallback_homedir is defined and sn.fallback_homedir != '' %}
-{{ 'fallback_homedir = ' + sn.fallback_homedir }}
+{% if sn['fallback_homedir'] is defined and sn['fallback_homedir']
+  not in ['', [], '[]', None] %}
+{{ 'fallback_homedir = ' + sn['fallback_homedir'] }}
 {% endif %}
-{% if sn.override_shell is defined and sn.override_shell != '' %}
-{{ 'override_shell = ' + sn.override_shell }}
+{% if sn['override_shell'] is defined and sn['override_shell']
+  not in ['', [], '[]', None] %}
+{{ 'override_shell = ' + sn['override_shell'] }}
 {% endif %}
-{% if sn.allowed_shells is defined and sn.allowed_shells != '' %}
-{{ 'allowed_shells = ' + sn.allowed_shells }}
+{% if sn['allowed_shells'] is defined and sn['allowed_shells']
+  not in ['', [], '[]', None] %}
+{{ 'allowed_shells = ' + sn['allowed_shells'] }}
 {% endif %}
-{% if sn.vetoed_shells is defined and sn.vetoed_shells != '' %}
-{{ 'vetoed_shells = ' + sn.vetoed_shells }}
+{% if sn['vetoed_shells'] is defined and sn['vetoed_shells']
+  not in ['', [], '[]', None] %}
+{{ 'vetoed_shells = ' + sn['vetoed_shells'] }}
 {% endif %}
-{% if sn.shell_fallback is defined and sn.shell_fallback != '' %}
-{{ 'shell_fallback = ' + sn.shell_fallback }}
+{% if sn['shell_fallback'] is defined and sn['shell_fallback']
+  not in ['', [], '[]', None] %}
+{{ 'shell_fallback = ' + sn['shell_fallback'] }}
 {% endif %}
-{% if sn.default_shell is defined and sn.default_shell != '' %}
-{{ 'default_shell = ' + sn.default_shell }}
+{% if sn['default_shell'] is defined and sn['default_shell']
+  not in ['', [], '[]', None] %}
+{{ 'default_shell = ' + sn['default_shell'] }}
 {% endif %}
-{% if sn.get_domains_timeout is defined and sn.get_domains_timeout != '' %}
-{{ 'get_domains_timeout = ' ~ sn.get_domains_timeout }}
+{% if sn['get_domains_timeout'] is defined and sn['get_domains_timeout']
+  not in ['', [], '[]', None] %}
+{{ 'get_domains_timeout = ' ~ sn['get_domains_timeout'] }}
 {% endif %}
-{% if sn.memcache_timeout is defined and sn.memcache_timeout != '' %}
-{{ 'memcache_timeout = ' ~ sn.memcache_timeout }}
+{% if sn['memcache_timeout'] is defined and sn['memcache_timeout']
+  not in ['', [], '[]', None] %}
+{{ 'memcache_timeout = ' ~ sn['memcache_timeout'] }}
 {% endif %}
-{% if sn.user_attributes is defined and sn.user_attributes != '' %}
-{{ 'user_attributes = ' + sn.user_attributes }}
+{% if sn['user_attributes'] is defined and sn['user_attributes']
+  not in ['', [], '[]', None] %}
+{{ 'user_attributes = ' + sn['user_attributes'] }}
 {% endif %}
-{% if sn.pwfield is defined and sn.pwfield != '' %}
-{{ 'pwfield = ' + sn.pwfield }}
+{% if sn['pwfield'] is defined and sn['pwfield'] not in ['', [], '[]', None] %}
+{{ 'pwfield = ' + sn['pwfield'] }}
 {% endif %}
 {% endfor %}

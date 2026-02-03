@@ -1,7 +1,7 @@
 ---
 - name: "sssd | Install the required packages in Redhat derivatives"
   when:
-    - "hostvars[inventory_hostname]['ansible_os_family'] == 'RedHat'"
+    - "hostvars[inventory_hostname]['ansible_facts']['os_family'] == 'RedHat'"
   block:
     - name: "sssd | Update dnf cache"
       ansible.builtin.dnf:
@@ -9,10 +9,10 @@
     - name: "sssd | Install package with dnf"
       ansible.builtin.dnf:
         name: "{{ hostvars[inventory_hostname]['sssd_package'] }}"
-        state: "{{ vars['sssd_package_state'] | default(omit) }}"
+        state: "{{ lookup('ansible.builtin.vars', 'sssd_package_state') }}"
 - name: "sssd | Install the required packages in Debian derivatives"
   when:
-    - "hostvars[inventory_hostname]['ansible_os_family'] == 'Debian'"
+    - "hostvars[inventory_hostname]['ansible_facts']['os_family'] == 'Debian'"
   block:
     - name: "sssd | Update apt cache"
       ansible.builtin.apt:
@@ -20,10 +20,11 @@
     - name: "sssd | Install package with apt"
       ansible.builtin.apt:
         name: "{{ hostvars[inventory_hostname]['sssd_package'] }}"
-        state: "{{ vars['sssd_package_state'] | default(omit) }}"
+        state: "{{ lookup('ansible.builtin.vars', 'sssd_package_state') }}"
 - name: "sssd | Install the required packages in ArchLinux derivatives"
   when:
-    - "hostvars[inventory_hostname]['ansible_os_family'] == 'Archlinux'"
+    - "hostvars[inventory_hostname]['ansible_facts']['os_family'] ==
+      'Archlinux'"
   block:
     - name: "sssd | Update pacman cache"
       community.general.pacman:
@@ -31,4 +32,4 @@
     - name: "sssd | Install package with pacman"
       community.general.pacman:
         name: "{{ hostvars[inventory_hostname]['sssd_package'] }}"
-        state: "{{ vars['sssd_package_state'] | default(omit) }}"
+        state: "{{ lookup('ansible.builtin.vars', 'sssd_package_state') }}"

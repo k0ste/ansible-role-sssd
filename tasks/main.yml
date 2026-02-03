@@ -7,18 +7,15 @@
     file: "packages.yml"
   when:
     - "hostvars[inventory_hostname]['sssd'] is defined"
-    - "hostvars[inventory_hostname]['sssd'] != ''"
+    - "hostvars[inventory_hostname]['sssd'] not in ['', [], '[]', None]"
     - "hostvars[inventory_hostname]['sssd'] |
-       community.general.json_query(vars['sssd_install_package']) is defined"
-    - "hostvars[inventory_hostname]['sssd'] |
-       community.general.json_query(vars['sssd_install_package']) == 'true'"
+       community.general.json_query(lookup('ansible.builtin.vars',
+      'sssd_install_package', default='')) == 'true'"
   vars:
     sssd_install_package: "[] | map(&install_package || 'false', @) | [0]"
 - name: "sssd | Include deployment tasks"
   ansible.builtin.include_tasks:
     file: "deploy.yml"
   when:
-    - "hostvars[inventory_hostname]['sssd_settings'] is defined"
-    - "hostvars[inventory_hostname]['sssd_settings'] != []"
-    - "hostvars[inventory_hostname]['sssd_settings'] != ''"
-    - "hostvars[inventory_hostname]['sssd_settings'] != None"
+    - "lookup('ansible.builtin.vars', 'sssd_settings',
+      default='') not in ['', [], '[]', None]"

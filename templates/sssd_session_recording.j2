@@ -1,36 +1,37 @@
-{% for sr in s.session_recording %}
-{% if loop.first %}
+{% for sr in s['session_recording'] %}
+{% if loop['first'] %}
 {{ '[session_recording]' }}
 {% endif %}
-{% if sr.debug_level is defined and sr.debug_level != '' %}
-{{ 'debug_level = ' ~ sr.debug_level }}
+{% if sr['debug_level'] is defined and sr['debug_level']
+  not in ['', [], '[]', None] %}
+{{ 'debug_level = ' ~ sr['debug_level'] }}
 {% endif %}
-{% if sr.debug_timestamps is defined and
-      sr.debug_timestamps in ['true', 'false'] %}
-{{ 'debug_timestamps = ' + sr.debug_timestamps }}
+{% if sr['debug_timestamps'] is defined and sr['debug_timestamps'] in
+  ['true', 'false'] %}
+{{ 'debug_timestamps = ' + sr['debug_timestamps'] }}
 {% endif %}
-{% if sr.debug_microseconds is defined and
-      sr.debug_microseconds in ['true', 'false'] %}
-{{ 'debug_microseconds = ' + sr.debug_microseconds }}
+{% if sr['debug_microseconds'] is defined and sr['debug_microseconds'] in
+  ['true', 'false'] %}
+{{ 'debug_microseconds = ' + sr['debug_microseconds'] }}
 {% endif %}
-{% if sr.timeout is defined and sr.timeout != '' %}
-{{ 'timeout = ' ~ sr.timeout }}
+{% if sr['timeout'] is defined and sr['timeout'] not in ['', [], '[]', None] %}
+{{ 'timeout = ' ~ sr['timeout'] }}
 {% endif %}
-{% if sr.scope is defined and sr.scope in ['none', 'some', 'all'] %}
-{{ 'scope = ' + sr.scope }}
+{% if sr['scope'] is defined and sr['scope'] in ['none', 'some', 'all'] %}
+{{ 'scope = ' + sr['scope'] }}
 {% endif %}
-{% if sr.users is defined and sr.users != '' %}
-{% if sr.users is string %}
-{{ 'users = ' + sr.users }}
-{% elif sr.users is sequence %}
-{{ 'users = ' + sr.users | join(', ')}}
+{% if sr['users'] is defined and sr['users'] not in ['', [], '[]', None] %}
+{% if sr['users'] is string %}
+{{ 'users = ' + sr['users'] }}
+{% elif sr['users'] is sequence %}
+{{ 'users = ' + (sr.users | join(', ')) }}
 {% endif %}
 {% endif %}
-{% if sr.groups is defined and sr.groups != '' %}
-{% if sr.groups is string %}
-{{ 'groups = ' + sr.groups }}
-{% elif sr.groups is sequence %}
-{{ 'groups = ' + sr.groups | join(', ')}}
+{% if sr['groups'] is defined and sr['groups'] not in ['', [], '[]', None] %}
+{% if sr['groups'] is string %}
+{{ 'groups = ' + sr['groups'] }}
+{% elif sr['groups'] is sequence %}
+{{ 'groups = ' + (sr.groups | join(', ')) }}
 {% endif %}
 {% endif %}
 {% endfor %}

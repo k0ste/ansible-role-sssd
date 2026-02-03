@@ -1,25 +1,27 @@
-{% for su in s.sudo %}
-{% if loop.first %}
+{% for su in s['sudo'] %}
+{% if loop['first'] %}
 {{ '[sudo]' }}
 {% endif %}
-{% if su.debug_level is defined and su.debug_level != '' %}
-{{ 'debug_level = ' ~ su.debug_level }}
+{% if su['debug_level'] is defined and su['debug_level']
+  not in ['', [], '[]', None] %}
+{{ 'debug_level = ' ~ su['debug_level'] }}
 {% endif %}
-{% if su.debug_timestamps is defined and
-      su.debug_timestamps in ['true', 'false'] %}
-{{ 'debug_timestamps = ' + su.debug_timestamps }}
+{% if su['debug_timestamps'] is defined and su['debug_timestamps'] in
+  ['true', 'false'] %}
+{{ 'debug_timestamps = ' + su['debug_timestamps'] }}
 {% endif %}
-{% if su.debug_microseconds is defined and
-      su.debug_microseconds in ['true', 'false'] %}
-{{ 'debug_microseconds = ' + su.debug_microseconds }}
+{% if su['debug_microseconds'] is defined and su['debug_microseconds'] in
+  ['true', 'false'] %}
+{{ 'debug_microseconds = ' + su['debug_microseconds'] }}
 {% endif %}
-{% if su.timeout is defined and su.timeout != '' %}
-{{ 'timeout = ' ~ su.timeout }}
+{% if su['timeout'] is defined and su['timeout'] not in ['', [], '[]', None] %}
+{{ 'timeout = ' ~ su['timeout'] }}
 {% endif %}
-{% if su.sudo_timed is defined and su.sudo_timed in ['true', 'false'] %}
-{{ 'sudo_timed = ' + su.sudo_timed }}
+{% if su['sudo_timed'] is defined and su['sudo_timed'] in ['true', 'false'] %}
+{{ 'sudo_timed = ' + su['sudo_timed'] }}
 {% endif %}
-{% if su.sudo_threshold is defined and su.sudo_threshold != '' %}
-{{ 'sudo_threshold = ' + su.sudo_threshold }}
+{% if su['sudo_threshold'] is defined and su['sudo_threshold']
+  not in ['', [], '[]', None] %}
+{{ 'sudo_threshold = ' + su['sudo_threshold'] }}
 {% endif %}
 {% endfor %}

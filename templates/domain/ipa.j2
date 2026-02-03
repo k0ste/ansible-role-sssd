@@ -1,97 +1,110 @@
-{% if sd.ipa_domain is defined and sd.ipa_domain != '' %}
-{{ 'ipa_domain = ' + sd.ipa_domain }}
+{% if sd['ipa_domain'] is defined and sd['ipa_domain']
+  not in ['', [], '[]', None] %}
+{{ 'ipa_domain = ' + sd['ipa_domain'] }}
 {% endif %}
-{% if sd.ipa_server is defined and sd.ipa_server != '' %}
-{% if sd.ipa_server is string %}
-{{ 'ipa_server = ' + sd.ipa_server }}
-{% elif sd.subdomain_inherit is sequence %}
-{{ 'ipa_server = ' ~ sd.ipa_server | join(', ') }}
-{% endif %}
-{% endif %}
-{% if sd.ipa_server is defined and sd.ipa_server != '' %}
-{% if sd.ipa_server is string %}
-{{ 'ipa_server = ' + sd.ipa_server }}
-{% elif sd.ipa_server is sequence %}
-{{ 'ipa_server = ' ~ sd.ipa_server | join(', ') }}
+{% if sd['ipa_server'] is defined and sd['ipa_server']
+  not in ['', [], '[]', None] %}
+{% if sd['ipa_server'] is string %}
+{{ 'ipa_server = ' + sd['ipa_server'] }}
+{% elif sd['subdomain_inherit'] is sequence %}
+{{ 'ipa_server = ' ~ (sd['ipa_server'] | join(', ')) }}
 {% endif %}
 {% endif %}
-{% if sd.ipa_backup_server is defined and sd.ipa_server != '' %}
-{% if sd.ipa_backup_server is string %}
-{{ 'ipa_backup_server = ' + sd.ipa_backup_server }}
-{% elif sd.ipa_backup_server is sequence %}
-{{ 'ipa_backup_server = ' ~ sd.ipa_backup_server | join(', ') }}
+{% if sd['ipa_server'] is defined and sd['ipa_server']
+  not in ['', [], '[]', None] %}
+{% if sd['ipa_server'] is string %}
+{{ 'ipa_server = ' + sd['ipa_server'] }}
+{% elif sd['ipa_server'] is sequence %}
+{{ 'ipa_server = ' ~ (sd['ipa_server'] | join(', ')) }}
 {% endif %}
 {% endif %}
-{% if sd.ipa_hostname is defined and sd.ipa_hostname != '' %}
-{{ 'ipa_hostname = ' + sd.ipa_hostname }}
+{% if sd['ipa_backup_server'] is defined and sd['ipa_server']
+  not in ['', [], '[]', None] %}
+{% if sd['ipa_backup_server'] is string %}
+{{ 'ipa_backup_server = ' + sd['ipa_backup_server'] }}
+{% elif sd['ipa_backup_server'] is sequence %}
+{{ 'ipa_backup_server = ' ~ (sd.ipa_backup_server | join(', ')) }}
 {% endif %}
-{% if sd.ipa_enable_dns_sites is defined and sd.ipa_enable_dns_sites
+{% endif %}
+{% if sd['ipa_hostname'] is defined and sd['ipa_hostname']
+  not in ['', [], '[]', None] %}
+{{ 'ipa_hostname = ' + sd['ipa_hostname'] }}
+{% endif %}
+{% if sd['ipa_enable_dns_sites'] is defined and sd['ipa_enable_dns_sites']
   in ['true', 'false'] %}
-{{ 'ipa_enable_dns_sites = ' + sd.ipa_enable_dns_sites }}
+{{ 'ipa_enable_dns_sites = ' + sd['ipa_enable_dns_sites'] }}
 {% endif %}
-{% if sd.ipa_deskprofile_search_base is defined and
-  sd.ipa_deskprofile_search_base != '' %}
-{{ 'ipa_deskprofile_search_base = ' + sd.ipa_deskprofile_search_base }}
+{% if sd['ipa_deskprofile_search_base'] is defined and
+  sd['ipa_deskprofile_search_base'] not in ['', [], '[]', None] %}
+{{ 'ipa_deskprofile_search_base = ' + sd['ipa_deskprofile_search_base'] }}
 {% endif %}
-{% if sd.ipa_hbac_search_base is defined and sd.ipa_hbac_search_base != '' %}
-{{ 'ipa_hbac_search_base = ' + sd.ipa_hbac_search_base }}
+{% if sd['ipa_hbac_search_base'] is defined and sd['ipa_hbac_search_base']
+  not in ['', [], '[]', None] %}
+{{ 'ipa_hbac_search_base = ' + sd['ipa_hbac_search_base'] }}
 {% endif %}
-{% if sd.ipa_selinux_search_base is defined and
-  sd.ipa_selinux_search_base != '' %}
-{{ 'ipa_selinux_search_base = ' + sd.ipa_selinux_search_base }}
+{% if sd['ipa_selinux_search_base'] is defined and
+  sd['ipa_selinux_search_base'] not in ['', [], '[]', None] %}
+{{ 'ipa_selinux_search_base = ' + sd['ipa_selinux_search_base'] }}
 {% endif %}
-{% if sd.ipa_subdomains_search_base is defined and
-  sd.ipa_subdomains_search_base != '' %}
-{{ 'ipa_subdomains_search_base = ' + sd.ipa_subdomains_search_base }}
+{% if sd['ipa_subdomains_search_base'] is defined and
+  sd['ipa_subdomains_search_base'] not in ['', [], '[]', None] %}
+{{ 'ipa_subdomains_search_base = ' + sd['ipa_subdomains_search_base'] }}
 {% endif %}
-{% if sd.ipa_master_domain_search_base is defined and
-  sd.ipa_master_domain_search_base != '' %}
-{{ 'ipa_master_domain_search_base = ' + sd.ipa_master_domain_search_base }}
+{% if sd['ipa_master_domain_search_base'] is defined and
+  sd['ipa_master_domain_search_base'] not in ['', [], '[]', None] %}
+{{ 'ipa_master_domain_search_base = ' + sd['ipa_master_domain_search_base'] }}
 {% endif %}
-{% if sd.ipa_views_search_base is defined and sd.ipa_views_search_base != '' %}
-{{ 'ipa_views_search_base = ' + sd.ipa_views_search_base }}
+{% if sd['ipa_views_search_base'] is defined and sd['ipa_views_search_base']
+  not in ['', [], '[]', None] %}
+{{ 'ipa_views_search_base = ' + sd['ipa_views_search_base'] }}
 {% endif %}
-{% if sd.ipa_deskprofile_refresh is defined and
-  sd.ipa_deskprofile_refresh != '' %}
-{{ 'ipa_deskprofile_refresh = ' ~ sd.ipa_deskprofile_refresh }}
+{% if sd['ipa_deskprofile_refresh'] is defined and
+  sd['ipa_deskprofile_refresh'] not in ['', [], '[]', None] %}
+{{ 'ipa_deskprofile_refresh = ' ~ sd['ipa_deskprofile_refresh'] }}
 {% endif %}
-{% if sd.ipa_deskprofile_request_interval is defined and
-  sd.ipa_deskprofile_request_interval != '' %}
+{% if sd['ipa_deskprofile_request_interval'] is defined and
+  sd['ipa_deskprofile_request_interval'] not in ['', [], '[]', None] %}
 {{ 'ipa_deskprofile_request_interval = ' ~
-  sd.ipa_deskprofile_request_interval }}
+  sd['ipa_deskprofile_request_interval'] }}
 {% endif %}
-{% if sd.ipa_hbac_refresh is defined and sd.ipa_hbac_refresh != '' %}
-{{ 'ipa_hbac_refresh = ' ~ sd.ipa_hbac_refresh }}
+{% if sd['ipa_hbac_refresh'] is defined and sd['ipa_hbac_refresh']
+  not in ['', [], '[]', None] %}
+{{ 'ipa_hbac_refresh = ' ~ sd['ipa_hbac_refresh'] }}
 {% endif %}
-{% if sd.ipa_hbac_selinux is defined and sd.ipa_hbac_selinux != '' %}
-{{ 'ipa_hbac_selinux = ' ~ sd.ipa_hbac_selinux }}
+{% if sd['ipa_hbac_selinux'] is defined and sd['ipa_hbac_selinux']
+  not in ['', [], '[]', None] %}
+{{ 'ipa_hbac_selinux = ' ~ sd['ipa_hbac_selinux'] }}
 {% endif %}
-{% if sd.ipa_server_mode is defined and sd.ipa_server_mode in
+{% if sd['ipa_server_mode'] is defined and sd['ipa_server_mode'] in
   ['true', 'false'] %}
-{{ 'ipa_server_mode = ' + sd.ipa_server_mode }}
+{{ 'ipa_server_mode = ' + sd['ipa_server_mode'] }}
 {% endif %}
-{% if sd.ipa_automount_location is defined and
-  sd.ipa_automount_location != '' %}
-{{ 'ipa_automount_location = ' + sd.ipa_automount_location }}
+{% if sd['ipa_automount_location'] is defined and
+  sd['ipa_automount_location'] not in ['', [], '[]', None] %}
+{{ 'ipa_automount_location = ' + sd['ipa_automount_location'] }}
 {% endif %}
-{% if sd.ipa_view_class is defined and sd.ipa_view_class != '' %}
-{{ 'ipa_view_class = ' + sd.ipa_view_class }}
+{% if sd['ipa_view_class'] is defined and sd['ipa_view_class']
+  not in ['', [], '[]', None] %}
+{{ 'ipa_view_class = ' + sd['ipa_view_class'] }}
 {% endif %}
-{% if sd.ipa_view_name is defined and sd.ipa_view_name != '' %}
-{{ 'ipa_view_name = ' + sd.ipa_view_name }}
+{% if sd['ipa_view_name'] is defined and sd['ipa_view_name']
+  not in ['', [], '[]', None] %}
+{{ 'ipa_view_name = ' + sd['ipa_view_name'] }}
 {% endif %}
-{% if sd.ipa_override_object_class is defined and
-  sd.ipa_override_object_class != '' %}
-{{ 'ipa_override_object_class = ' + sd.ipa_override_object_class }}
+{% if sd['ipa_override_object_class'] is defined and
+  sd['ipa_override_object_class'] not in ['', [], '[]', None] %}
+{{ 'ipa_override_object_class = ' + sd['ipa_override_object_class'] }}
 {% endif %}
-{% if sd.ipa_anchor_uuid is defined and sd.ipa_anchor_uuid != '' %}
-{{ 'ipa_anchor_uuid = ' + sd.ipa_anchor_uuid }}
+{% if sd['ipa_anchor_uuid'] is defined and sd['ipa_anchor_uuid']
+  not in ['', [], '[]', None] %}
+{{ 'ipa_anchor_uuid = ' + sd['ipa_anchor_uuid'] }}
 {% endif %}
-{% if sd.ipa_user_override_object_class is defined and
-  sd.ipa_user_override_object_class != '' %}
-{{ 'ipa_user_override_object_class = ' + sd.ipa_user_override_object_class }}
+{% if sd['ipa_user_override_object_class'] is defined and
+  sd['ipa_user_override_object_class'] not in ['', [], '[]', None] %}
+{{ 'ipa_user_override_object_class = ' + sd['ipa_user_override_object_class'] }}
 {% endif %}
-{% if sd.ipa_group_override_object_class is defined and
-  sd.ipa_group_override_object_class != '' %}
-{{ 'ipa_group_override_object_class = ' + sd.ipa_group_override_object_class }}
+{% if sd['ipa_group_override_object_class'] is defined and
+  sd['ipa_group_override_object_class'] not in ['', [], '[]', None] %}
+{{ 'ipa_group_override_object_class = ' +
+  sd['ipa_group_override_object_class'] }}
 {% endif %}

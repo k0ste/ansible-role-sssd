@@ -2,41 +2,43 @@
 {{ '# ' + ansible_managed }}
 {{ '# Do not edit manually' }}
 
-{% for s in vars['sssd_settings'] %}
-{% if s.sssd is defined and s.sssd != '' %}
+{% for s in lookup('ansible.builtin.vars', 'sssd_settings') %}
+{% if s['sssd'] is defined and s['sssd'] not in ['', [], '[]', None] %}
 {% include 'sssd_sssd.j2' %}
 {{ '' }}
 {% endif %}
-{% if s.nss is defined and s.nss != '' %}
+{% if s['nss'] is defined and s['nss'] not in ['', [], '[]', None] %}
 {% include 'sssd_nss.j2' %}
 {{ '' }}
 {% endif %}
-{% if s.pam is defined and s.pam != '' %}
+{% if s['pam'] is defined and s['pam'] not in ['', [], '[]', None] %}
 {% include 'sssd_pam.j2' %}
 {{ '' }}
 {% endif %}
-{% if s.sudo is defined and s.sudo != '' %}
+{% if s['sudo'] is defined and s['sudo'] not in ['', [], '[]', None] %}
 {% include 'sssd_sudo.j2' %}
 {{ '' }}
 {% endif %}
-{% if s.autofs is defined and s.autofs != '' %}
+{% if s['autofs'] is defined and s['autofs'] not in ['', [], '[]', None] %}
 {% include 'sssd_autofs.j2' %}
 {{ '' }}
 {% endif %}
-{% if s.ssh is defined and s.ssh != '' %}
+{% if s['ssh'] is defined and s['ssh'] not in ['', [], '[]', None] %}
 {% include 'sssd_ssh.j2' %}
 {{ '' }}
 {% endif %}
-{% if s.pac is defined and s.pac != '' %}
+{% if s['pac'] is defined and s['pac'] not in ['', [], '[]', None] %}
 {% include 'sssd_pac.j2' %}
 {{ '' }}
 {% endif %}
-{% if s.session_recording is defined and s.session_recording != '' %}
+{% if s['session_recording'] is defined and s['session_recording']
+  not in ['', [], '[]', None] %}
 {% include 'sssd_session_recording.j2' %}
 {{ '' }}
 {% endif %}
-{% if vars['sssd_domains'] is defined and vars['sssd_domains'] != '' %}
-{% for sd in vars['sssd_domains'] %}
+{% if lookup('ansible.builtin.vars', 'sssd_domains', default='')
+  not in ['', [], '[]', None] %}
+{% for sd in lookup('ansible.builtin.vars', 'sssd_domains') %}
 {% include 'sssd_domain.j2' %}
 {% include 'domain/ipa.j2' %}
 {% include 'domain/ad.j2' %}
